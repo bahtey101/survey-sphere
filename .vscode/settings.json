@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        
+
+
+        {
+            "previewLimit": 50,
+            "server": "194.226.49.210",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "tsp-postgres",
+            "database": "survey_sphere_db",
+            "username": "sudo_user"
+        }
+    ]
+}
