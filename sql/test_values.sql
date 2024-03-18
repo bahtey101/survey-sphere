@@ -35,3 +35,26 @@ INSERT INTO answer(pass_id, survey_id, question_number, answer_text) VALUES
         3,
         'male'
     );
+
+INSERT INTO pass(survey_id, respondent_id, creation_time) VALUES
+    (7, 7, CURRENT_TIMESTAMP);
+
+INSERT INTO answer(pass_id, survey_id, question_number, answer_text) VALUES
+    (
+        3, 
+        (SELECT survey_id FROM pass WHERE pass.id=3),
+        1,
+        'Nikita'
+    ),
+    (
+        3, 
+        (SELECT survey_id FROM pass WHERE pass.id=3),
+        2,
+        'Who knows?'
+    ),
+    (
+        3, 
+        (SELECT survey_id FROM pass WHERE pass.id=3),
+        3,
+        'male'
+    );

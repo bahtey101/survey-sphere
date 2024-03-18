@@ -1,5 +1,5 @@
--- CREATE TYPE user_role AS ENUM ('respondent', 'admin');
--- CREATE TYPE question_type AS ENUM ('with_text', 'with_option');
+CREATE TYPE user_role AS ENUM ('respondent', 'admin');
+CREATE TYPE question_type AS ENUM ('with_text', 'with_option');
 
 CREATE TABLE IF NOT EXISTS site_user (
     id                  serial PRIMARY KEY,
@@ -35,6 +35,6 @@ CREATE TABLE IF NOT EXISTS answer (
     answer_text         text,
     survey_id           serial REFERENCES survey(id),
     question_number     smallserial,
-    PRIMARY KEY (survey_id, question_number),
+    PRIMARY KEY (pass_id, survey_id, question_number),
     FOREIGN KEY (survey_id, question_number) REFERENCES question(survey_id, number)
 );
