@@ -12,12 +12,13 @@ CREATE TABLE IF NOT EXISTS survey (
     id                  serial PRIMARY KEY,
     creator_id          serial REFERENCES site_user(id) NOT NULL,
     topic               text NOT NULL,
-    creation_time       timestamp with time zone NOT NULL
+    creation_time       timestamp with time zone NOT NULL,
+    UNIQUE (topic, creator_id)
 );
 
 CREATE TABLE IF NOT EXISTS question (
     survey_id           serial REFERENCES survey(id) NOT NULL,
-    number              smallserial NOT NULL,
+    number              smallserial NOT NULL UNIQUE,
     type                question_type,
     question_text       text,
     PRIMARY KEY (survey_id, number)
@@ -27,7 +28,8 @@ CREATE TABLE IF NOT EXISTS pass (
     id                  serial PRIMARY KEY,
     survey_id           serial REFERENCES survey(id) NOT NULL,
     respondent_id       serial REFERENCES site_user(id) NOT NULL,
-    creation_time       timestamp with time zone NOT NULL
+    creation_time       timestamp with time zone NOT NULL,
+    UNIQUE (survey_id, respondent_id)
 );
 
 CREATE TABLE IF NOT EXISTS answer (
