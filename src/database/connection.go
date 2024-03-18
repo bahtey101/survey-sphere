@@ -2,10 +2,13 @@ package database
 
 import (
 	"fmt"
+	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+var dbase *gorm.DB
 
 func Init() *gorm.DB {
 	host := "194.226.49.210"
@@ -18,10 +21,21 @@ func Init() *gorm.DB {
 		host, user, password, dbname, port)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	print(err)
 	if err != nil {
 		panic("Failed to connect to database")
 	}
 
 	return db
+}
+
+func GetDataBase() *gorm.DB {
+	var sleep = time.Duration(1)
+
+	for dbase == nil {
+		fmt.Printf("Database is not available. Wait for %d sec.\n", sleep)
+		time.Sleep(time.Second)
+		dbase = Init()
+	}
+
+	return dbase
 }
