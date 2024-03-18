@@ -25,7 +25,7 @@ const (
 )
 
 type User struct {
-	ID       uint16
+	ID       uint32
 	Login    string
 	Password string
 	Role     UserRole
@@ -33,27 +33,28 @@ type User struct {
 
 type Survey struct {
 	ID           uint32
-	CreatorID    uint16
+	CreatorID    uint32
 	Topic        string
 	CreationTime time.Time
 }
 
 type Question struct {
-	SurveyID uint32
-	Number   uint16
-	Type     string
-	Text     string
+	SurveyID     uint32
+	Number       uint16
+	Type         QuestionType
+	QuestionText string
 }
 
 type Pass struct {
 	ID           uint32
 	SurveyID     uint32
-	RespondentID uint16
+	RespondentID uint32
 	CreationTime time.Time
 }
 
 type Answer struct {
 	PassID         uint32
+	SurveyID       uint32
 	QuestionNumber uint16
-	Text           string
+	AnswerText     string
 }

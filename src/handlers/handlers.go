@@ -1,15 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
-	"net/http"
-	"src/database"
-	"src/models"
-
 	"github.com/gin-gonic/gin"
 )
 
-func Registration(context *gin.Context) {
+/*func Registration(context *gin.Context) {
 	var user *models.User
 
 	decode := json.NewDecoder(context.Request.Body).Decode(&user)
@@ -42,7 +37,7 @@ func Registration(context *gin.Context) {
 			})
 		}
 	}
-}
+}*/
 
 func Login(context *gin.Context) {
 
