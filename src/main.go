@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"src/database"
 	//"src/handlers"
 	//"github.com/gin-gonic/gin"
@@ -9,11 +10,11 @@ import (
 func main() {
 	database.Init()
 
-	user := database.GetUserByLogin("NIKITKA")
-	err := database.CreateSurvey(user.ID, "Do yo do?")
+	user, err := database.GetUserByLogin("user1")
 	if err != nil {
-		panic("Failed to do yo do")
+		panic("Failed to get user")
 	}
+	fmt.Println("USER.ID ", user.ID)
 
 	//user1 := database.GetUserByLogin("user1")
 
