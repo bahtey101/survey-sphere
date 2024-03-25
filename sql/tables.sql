@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS surveys (
 
 CREATE TABLE IF NOT EXISTS questions (
     survey_id           serial REFERENCES surveys(id) NOT NULL,
-    number              integer DEFAULT 1 NOT NULL UNIQUE,
+    number              integer DEFAULT 1,
     type                question_type,
     question_text       text,
     PRIMARY KEY (survey_id, number)
