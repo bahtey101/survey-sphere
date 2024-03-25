@@ -13,6 +13,11 @@ INSERT INTO questions(survey_id, type, question_text) VALUES
     (1, 'with_text', 'What does the fox say?'),
     (1, 'with_option', 'Are you male or female?');
 
+INSERT INTO questions(survey_id, type, question_text) VALUES
+    (2, 'with_text', 'What is your name?'),
+    (2, 'with_text', 'What does the fox say?'),
+    (2, 'with_option', 'Are you male or female?');
+
 INSERT INTO passes(survey_id, respondent_id, creation_time) VALUES
     (1, 2, CURRENT_TIMESTAMP);
 
