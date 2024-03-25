@@ -73,25 +73,25 @@ func InitTestValues() {
 	// First pass
 	var passTS1U2 database.Pass
 	database.GetDataBase().Where("survey_id = ? AND respondent_id = ?", test_survey_1.ID, user2.ID).First(&passTS1U2)
-	if !IsExistAnswer(passTS1U2.ID, 1) {
+	if !IsExistAnswer(passTS1U2.ID, passTS1U2.SurveyID, 1) {
 		database.CreateAnswer(passTS1U2.ID, passTS1U2.SurveyID, 1, "Dimon")
 	}
-	if !IsExistAnswer(passTS1U2.ID, 2) {
+	if !IsExistAnswer(passTS1U2.ID, passTS1U2.SurveyID, 2) {
 		database.CreateAnswer(passTS1U2.ID, passTS1U2.SurveyID, 2, "meow")
 	}
-	if !IsExistAnswer(passTS1U2.ID, 3) {
+	if !IsExistAnswer(passTS1U2.ID, passTS1U2.SurveyID, 3) {
 		database.CreateAnswer(passTS1U2.ID, passTS1U2.SurveyID, 3, "male")
 	}
 	// Second pass
 	var passTS1U1 database.Pass
 	database.GetDataBase().Where("survey_id = ? AND respondent_id = ?", test_survey_1.ID, user1.ID).First(&passTS1U1)
-	if !IsExistAnswer(passTS1U1.ID, 1) {
+	if !IsExistAnswer(passTS1U1.ID, passTS1U1.SurveyID, 1) {
 		database.CreateAnswer(passTS1U1.ID, passTS1U1.SurveyID, 1, "Nikita")
 	}
-	if !IsExistAnswer(passTS1U1.ID, 2) {
+	if !IsExistAnswer(passTS1U1.ID, passTS1U1.SurveyID, 2) {
 		database.CreateAnswer(passTS1U1.ID, passTS1U1.SurveyID, 2, "Who knows?")
 	}
-	if !IsExistAnswer(passTS1U1.ID, 3) {
+	if !IsExistAnswer(passTS1U1.ID, passTS1U1.SurveyID, 3) {
 		database.CreateAnswer(passTS1U1.ID, passTS1U1.SurveyID, 3, "male")
 	}
 
@@ -99,25 +99,25 @@ func InitTestValues() {
 	// First pass
 	var passTS2U2 database.Pass
 	database.GetDataBase().Where("survey_id = ? AND respondent_id = ?", test_survey_2.ID, user2.ID).First(&passTS2U2)
-	if !IsExistAnswer(passTS2U2.ID, 1) {
+	if !IsExistAnswer(passTS2U2.ID, passTS2U2.SurveyID, 1) {
 		database.CreateAnswer(passTS2U2.ID, passTS2U2.SurveyID, 1, "Kate")
 	}
-	if !IsExistAnswer(passTS2U2.ID, 2) {
+	if !IsExistAnswer(passTS2U2.ID, passTS2U2.SurveyID, 2) {
 		database.CreateAnswer(passTS2U2.ID, passTS2U2.SurveyID, 2, "gav")
 	}
-	if !IsExistAnswer(passTS2U2.ID, 3) {
+	if !IsExistAnswer(passTS2U2.ID, passTS2U2.SurveyID, 3) {
 		database.CreateAnswer(passTS2U2.ID, passTS2U2.SurveyID, 3, "female")
 	}
 	// Second pass
 	var passTS2U1 database.Pass
 	database.GetDataBase().Where("survey_id = ? AND respondent_id = ?", test_survey_2.ID, user1.ID).First(&passTS2U1)
-	if !IsExistAnswer(passTS2U1.ID, 1) {
+	if !IsExistAnswer(passTS2U1.ID, passTS2U1.SurveyID, 1) {
 		database.CreateAnswer(passTS2U1.ID, passTS2U1.SurveyID, 1, "Masha")
 	}
-	if !IsExistAnswer(passTS2U1.ID, 2) {
+	if !IsExistAnswer(passTS2U1.ID, passTS2U1.SurveyID, 2) {
 		database.CreateAnswer(passTS2U1.ID, passTS2U1.SurveyID, 2, "moo")
 	}
-	if !IsExistAnswer(passTS2U1.ID, 3) {
+	if !IsExistAnswer(passTS2U1.ID, passTS2U1.SurveyID, 3) {
 		database.CreateAnswer(passTS2U1.ID, passTS2U1.SurveyID, 3, "female")
 	}
 }
@@ -149,11 +149,11 @@ func IsExistPass(survey_id uint32, respondent_id uint32) bool {
 	return count > 0
 }
 
-func IsExistAnswer(survey_id uint32, question_number int32) bool {
+func IsExistAnswer(pass_id uint32, survey_id uint32, question_number int32) bool {
 	var count int64 = 0
 	var answer database.Answer
 
-	database.GetDataBase().Find(&answer, database.Answer{SurveyID: survey_id, QuestionNumber: question_number}).Count(&count)
+	database.GetDataBase().Find(&answer, database.Answer{PassID: pass_id, SurveyID: survey_id, QuestionNumber: question_number}).Count(&count)
 
 	return count > 0
 }
