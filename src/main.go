@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"src/database"
+	"src/tests"
 	//"src/handlers"
 	//"github.com/gin-gonic/gin"
 )
@@ -10,11 +11,16 @@ import (
 func main() {
 	database.Init()
 
-	user, err := database.GetUserByLogin("user1")
+	tests.InitTestValues()
+
+	user, err := database.GetUserByLogin("user2")
 	if err != nil {
 		panic("Failed to get user")
 	}
 	fmt.Println("USER.ID ", user.ID)
+
+	err = database.DeleteUserByLogin(user.Login)
+	fmt.Println("Error1: " + err.Error())
 
 	//user1 := database.GetUserByLogin("user1")
 
