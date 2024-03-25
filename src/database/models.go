@@ -1,27 +1,27 @@
-package models
+package database
 
 import "time"
 
 const (
-	UserTable     string = "site_user"
-	SurveyTable          = "survey"
-	QuestionTable        = "question"
-	PassTable            = "pass"
-	AnswerTable          = "answer"
+	UserTable     string = "site_users"
+	SurveyTable   string = "surveys"
+	QuestionTable string = "questions"
+	PassTable     string = "passes"
+	AnswerTable   string = "answers"
 )
 
 type UserRole string
 
 const (
 	Respondent UserRole = "respondent"
-	Admin               = "admin"
+	Admin      UserRole = "admin"
 )
 
 type QuestionType string
 
 const (
 	WithText   QuestionType = "with_text"
-	WithOption              = "with_option"
+	WithOption QuestionType = "with_option"
 )
 
 type User struct {
