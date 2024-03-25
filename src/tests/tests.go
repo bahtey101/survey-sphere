@@ -3,7 +3,6 @@ package tests
 import (
 	"fmt"
 	"src/database"
-	"src/models"
 )
 
 func InitTestValues() {
@@ -16,10 +15,10 @@ func InitTestValues() {
 	}
 
 	// Create user1's surveys
-	var user1 models.User
+	var user1 database.User
 	var first_topic = "Test Survey 1"
 	var second_topic = "Test Survey 2"
-	database.GetDataBase().Table(models.UserTable).Where("login = ?", "user1").First(&user1)
+	database.GetDataBase().Table(database.UserTable).Where("login = ?", "user1").First(&user1)
 	if !IsExistSurvey(first_topic, user1.ID) {
 		database.CreateSurvey(user1.ID, first_topic)
 	}
@@ -28,7 +27,7 @@ func InitTestValues() {
 	}
 
 	// Create quesions for Test Survey 1
-	var test_survey_1 models.Survey
+	var test_survey_1 database.Survey
 	database.GetDataBase().Where("creator_id = ? AND topic = ?", user1.ID, first_topic).First(&test_survey_1)
 	fmt.Println(test_survey_1)
 	database.CreateQuestion(test_survey_1.ID, "What is your name?", "with_text")
@@ -45,18 +44,18 @@ func InitTestValues() {
 
 func IsExistSurvey(topic string, creator_id uint32) bool {
 	var count int64 = 0
-	var survey models.Survey
+	var survey database.Survey
 
-	database.GetDataBase().Find(&survey, models.Survey{Topic: topic, CreatorID: creator_id}).Count(&count)
+	database.GetDataBase().Find(&survey, database.Survey{Topic: topic, CreatorID: creator_id}).Count(&count)
 
 	return count > 0
 }
 
 func IsExistQuestion(survey_id uint32, number uint16) bool {
 	var count int64 = 0
-	var question models.Question
+	var question database.Question
 
-	database.GetDataBase().Find(&question, models.Question{SurveyID: survey_id, Number: number}).Count(&count)
+	database.GetDataBase().Find(&question, database.Question{SurveyID: survey_id, Number: number}).Count(&count)
 
 	return count > 0
 }
