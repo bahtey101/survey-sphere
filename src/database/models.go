@@ -40,7 +40,7 @@ type Survey struct {
 
 type Question struct {
 	SurveyID     uint32
-	Number       uint16
+	Number       int32
 	Type         QuestionType
 	QuestionText string
 }
@@ -55,6 +55,6 @@ type Pass struct {
 type Answer struct {
 	PassID         uint32
 	SurveyID       uint32
-	QuestionNumber uint16
+	QuestionNumber int32
 	AnswerText     string
 }

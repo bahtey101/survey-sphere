@@ -30,7 +30,7 @@ func InitTestValues() {
 	var test_survey_1 database.Survey
 	database.GetDataBase().Where("creator_id = ? AND topic = ?", user1.ID, first_topic).First(&test_survey_1)
 	fmt.Println(test_survey_1)
-	database.CreateQuestion(test_survey_1.ID, "What is your name?", "with_text")
+	// database.CreateQuestion(test_survey_1.ID, "What is your name?", "with_text")
 	// if !IsExistQuestion(test_survey_1.ID, 1) {
 	// 	database.CreateQuestion(test_survey_1.ID, "What is your name?", "with_text")
 	// }
@@ -51,7 +51,7 @@ func IsExistSurvey(topic string, creator_id uint32) bool {
 	return count > 0
 }
 
-func IsExistQuestion(survey_id uint32, number uint16) bool {
+func IsExistQuestion(survey_id uint32, number int32) bool {
 	var count int64 = 0
 	var question database.Question
 

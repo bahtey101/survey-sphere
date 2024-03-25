@@ -36,7 +36,7 @@ func CreatePass(survey_id uint32, respondent_id uint32) error {
 	return GetDataBase().Table(PassTable).Create(&pass).Error
 }
 
-func CreateAnswer(pass_id uint32, survey_id uint32, qnum uint16, answer string) error {
+func CreateAnswer(pass_id uint32, survey_id uint32, qnum int32, answer string) error {
 	ans := Answer{PassID: pass_id, SurveyID: survey_id, QuestionNumber: qnum, AnswerText: answer}
 	return GetDataBase().Table(AnswerTable).Create(&ans).Error
 }

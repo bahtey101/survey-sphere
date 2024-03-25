@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS surveys (
 
 CREATE TABLE IF NOT EXISTS questions (
     survey_id           serial REFERENCES surveys(id) NOT NULL,
-    number              smallserial NOT NULL UNIQUE,
+    number              integer DEFAULT 1 NOT NULL UNIQUE,
     type                question_type,
     question_text       text,
     PRIMARY KEY (survey_id, number)
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS answers (
     pass_id             serial REFERENCES passes(id) NOT NULL,
     answer_text         text,
     survey_id           serial REFERENCES surveys(id),
-    question_number     smallserial,
+    question_number     integer,
     PRIMARY KEY (pass_id, survey_id, question_number),
     FOREIGN KEY (survey_id, question_number) REFERENCES questions(survey_id, number)
 );
