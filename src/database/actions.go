@@ -10,7 +10,7 @@ func IsExistUserByLogin(login string) bool {
 	var count int64 = 0
 	var user models.User
 
-	GetDataBase().First(&user, models.User{Login: login}).Count(&count)
+	GetDataBase().Table(models.UserTable).Find(&user, models.User{Login: login}).Count(&count)
 
 	return count > 0
 }
