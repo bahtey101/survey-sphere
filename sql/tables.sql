@@ -10,14 +10,14 @@ CREATE TABLE IF NOT EXISTS site_users (
 
 CREATE TABLE IF NOT EXISTS surveys (
     id                  serial PRIMARY KEY,
-    creator_id          serial REFERENCES site_users(id) NOT NULL,
+    creator_id          serial REFERENCES site_users(id) ON DELETE CASCADE NOT NULL,
     topic               text NOT NULL,
     creation_time       timestamp with time zone NOT NULL,
     UNIQUE (topic, creator_id)
 );
 
 CREATE TABLE IF NOT EXISTS questions (
-    survey_id           serial REFERENCES surveys(id) NOT NULL,
+    survey_id           serial REFERENCES surveys(id) ON DELETE CASCADE NOT NULL,
     number              integer DEFAULT 1,
     type                question_type,
     question_text       text,
@@ -26,16 +26,16 @@ CREATE TABLE IF NOT EXISTS questions (
 
 CREATE TABLE IF NOT EXISTS passes (
     id                  serial PRIMARY KEY,
-    survey_id           serial REFERENCES surveys(id) NOT NULL,
-    respondent_id       serial REFERENCES site_users(id) NOT NULL,
+    survey_id           serial REFERENCES surveys(id) ON DELETE CASCADE NOT NULL,
+    respondent_id       serial REFERENCES site_users(id) ON DELETE CASCADE NOT NULL,
     creation_time       timestamp with time zone NOT NULL,
     UNIQUE (survey_id, respondent_id)
 );
 
 CREATE TABLE IF NOT EXISTS answers (
-    pass_id             serial REFERENCES passes(id) NOT NULL,
+    pass_id             serial REFERENCES passes(id) ON DELETE CASCADE NOT NULL,
     answer_text         text,
-    survey_id           serial REFERENCES surveys(id),
+    survey_id           serial REFERENCES surveys(id) ON DELETE CASCADE NOT NULL,
     question_number     integer,
     PRIMARY KEY (pass_id, survey_id, question_number),
     FOREIGN KEY (survey_id, question_number) REFERENCES questions(survey_id, number)
