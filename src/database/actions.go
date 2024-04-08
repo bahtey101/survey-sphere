@@ -1,59 +1,123 @@
 package database
 
-import (
-	"time"
-)
+// CHECK
 
-func IsExistUserByLogin(login string) bool {
+func IsExistUser(user *User) bool {
 	var count int64 = 0
-	var user User
-
-	GetDataBase().Table(UserTable).Find(&user, User{Login: login}).Count(&count)
-
+	GetDataBase().Find(&user, User{Login: user.Login}).Count(&count)
 	return count > 0
+}
+
+// CREATE TABLES
+
+func CreateTables() {
+	if !GetDataBase().Migrator().HasTable(&User{}) {
+		GetDataBase().Migrator().CreateTable(&User{})
+	}
+	if !GetDataBase().Migrator().HasTable(&Survey{}) {
+		GetDataBase().Migrator().CreateTable(&Survey{})
+	}
+	if !GetDataBase().Migrator().HasTable(&Question{}) {
+		GetDataBase().Migrator().CreateTable(&Question{})
+	}
+	if !GetDataBase().Migrator().HasTable(&Pass{}) {
+		GetDataBase().Migrator().CreateTable(&Pass{})
+	}
+	if !GetDataBase().Migrator().HasTable(&Answer{}) {
+		GetDataBase().Migrator().CreateTable(&Answer{})
+	}
 }
 
 // CREATE
 
-func CreateUser(login string, password string, role UserRole) error {
-	user := User{Login: login, Password: password, Role: role}
-	return GetDataBase().Table(UserTable).Create(&user).Error
+func CreateUser(user *User) (*User, error) {
+	var err error = nil
+	if !IsExistUser(user) {
+		err = GetDataBase().Create(&user).Error
+	}
+	return GetUser(user), err
 }
 
-func CreateSurvey(creator_id uint32, topic string) error {
-	survey := Survey{CreatorID: creator_id, Topic: topic, CreationTime: time.Now()}
-	return GetDataBase().Table(SurveyTable).Create(&survey).Error
+func CreateSurvey(survey *Survey) (*Survey, error) {
+	err := GetDataBase().Create(&survey).Error
+	if err != nil {
+		return nil, err
+	}
+	return GetSurvey(survey), nil
 }
 
-func CreateQuestion(survey_id uint32, question_text string, question_type QuestionType) error {
-	question := Question{SurveyID: survey_id, QuestionText: question_text, Type: question_type}
-	return GetDataBase().Table(QuestionTable).Create(&question).Error
+func CreateQuestion(question *Question) (*Question, error) {
+	err := GetDataBase().Create(&question).Error
+	if err != nil {
+		return nil, err
+	}
+	return GetQuestion(question), nil
 }
 
-func CreatePass(survey_id uint32, respondent_id uint32) error {
-	pass := Pass{SurveyID: survey_id, RespondentID: respondent_id, CreationTime: time.Now()}
-	return GetDataBase().Table(PassTable).Create(&pass).Error
+func CreatePass(pass *Pass) (*Pass, error) {
+	err := GetDataBase().Create(&pass).Error
+	if err != nil {
+		return nil, err
+	}
+	return GetPass(pass), nil
 }
 
-func CreateAnswer(pass_id uint32, survey_id uint32, qnum int32, answer string) error {
-	ans := Answer{PassID: pass_id, SurveyID: survey_id, QuestionNumber: qnum, AnswerText: answer}
-	return GetDataBase().Table(AnswerTable).Create(&ans).Error
+func CreateAnswer(answer *Answer) (*Answer, error) {
+	err := GetDataBase().Create(&answer).Error
+	if err != nil {
+		return nil, err
+	}
+	return GetAnswer(answer), nil
 }
 
 // GET
 
-func GetUserByLogin(login string) (User, error) {
-	var user User
-	err := GetDataBase().Table(UserTable).Where(User{Login: login}).First(&user).Error
-	return user, err
+func GetUser(user *User) *User {
+	err := GetDataBase().Where(&user).First(&user).Error
+	if err != nil {
+		return nil
+	}
+	return user
+}
+
+func GetSurvey(survey *Survey) *Survey {
+	err := GetDataBase().Where(&survey).First(&survey).Error
+	if err != nil {
+		return nil
+	}
+	return survey
+}
+
+func GetQuestion(question *Question) *Question {
+	err := GetDataBase().Where(&question).First(&question).Error
+	if err != nil {
+		return nil
+	}
+	return question
+}
+
+func GetPass(pass *Pass) *Pass {
+	err := GetDataBase().Where(&pass).First(&pass).Error
+	if err != nil {
+		return nil
+	}
+	return pass
+}
+
+func GetAnswer(answer *Answer) *Answer {
+	err := GetDataBase().Where(&answer).First(&answer).Error
+	if err != nil {
+		return nil
+	}
+	return answer
 }
 
 // DELETE
 
-func DeleteUserByLogin(login string) (err error) {
-	return GetDataBase().Table(UserTable).Where("login = ?", login).Delete(&User{}).Error
+func DeleteUser(user *User) error {
+	return GetDataBase().Where("login = ?", user.Login).Delete(&User{}).Error
 }
 
-func DeleteSurveyByID(survey_id uint32) (err error) {
-	return GetDataBase().Table(SurveyTable).Where("id = ?", survey_id).Delete(&Survey{}).Error
+func DeleteSurvey(survey *Survey) error {
+	return GetDataBase().Where("id = ?", survey.ID).Delete(&Survey{}).Error
 }

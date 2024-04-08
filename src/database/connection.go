@@ -29,11 +29,9 @@ func Init() *gorm.DB {
 }
 
 func GetDataBase() *gorm.DB {
-	var sleep = time.Duration(1)
-
 	for dbase == nil {
-		fmt.Printf("Database is not available. Wait for %d sec.\n", sleep)
-		time.Sleep(time.Second)
+		fmt.Println("Database is not available. Wait for 1 millisec.")
+		time.Sleep(time.Millisecond)
 		dbase = Init()
 	}
 

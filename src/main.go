@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "fmt"
 	"src/database"
 	"src/tests"
 )
@@ -9,5 +8,10 @@ import (
 func main() {
 	database.Init()
 
-	tests.InitTestValues()
+	database.CreateTables()
+
+	tests.TEST_1()
+
+	//database.DeleteUser(user1)
+	//database.DeleteUser(user2)
 }

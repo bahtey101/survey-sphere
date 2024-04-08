@@ -1,9 +1,113 @@
 package tests
 
 import (
+	"fmt"
 	"src/database"
 )
 
+func TEST_1() {
+	// Create users
+	user1, err := database.CreateUser(&database.User{Login: "user1", Password: "123"})
+	if err != nil {
+		fmt.Println("ERROR BLYAT")
+	}
+	fmt.Println("USER1: ", user1)
+
+	user2, err := database.CreateUser(&database.User{Login: "user2", Password: "123"})
+	if err != nil {
+		fmt.Println("ERROR BLYAT (2)")
+	}
+	fmt.Println("USER2: ", user2)
+
+	// Create Surveys
+	survey1, err := database.CreateSurvey(&database.Survey{CreatorID: user1.ID, Topic: "Nikita_OS"})
+	if err != nil {
+		fmt.Println("ERROR SUKA")
+	}
+	fmt.Println("SURVEY1: ", survey1)
+
+	survey2, err := database.CreateSurvey(&database.Survey{CreatorID: user1.ID, Topic: "Pon_OS"})
+	if err != nil {
+		fmt.Println("ERROR SUKA (2)")
+	}
+	fmt.Println("SURVEY2: ", survey2)
+
+	// Create Questions
+	question1, err := database.CreateQuestion(&database.Question{SurveyID: survey1.ID, Type: database.WithText, QuestionText: "ALO?"})
+	if err != nil {
+		fmt.Println("KURWA PERDOLE")
+	}
+	fmt.Println("QUESTION1: ", question1)
+
+	question2, err := database.CreateQuestion(&database.Question{SurveyID: survey1.ID, Type: database.WithText, QuestionText: "Is it nikitos?"})
+	if err != nil {
+		fmt.Println("KURWA PERDOLE (2)")
+	}
+	fmt.Println("QUESTION2: ", question2)
+
+	question3, err := database.CreateQuestion(&database.Question{SurveyID: survey2.ID, Type: database.WithText, QuestionText: "HUYEM PO LBU NE DALO?"})
+	if err != nil {
+		fmt.Println("KURWA PERDOLE (3)")
+	}
+	fmt.Println("QUESTION3: ", question3)
+
+	// Create Passes
+
+	pass1, err := database.CreatePass(&database.Pass{SurveyID: survey1.ID, RespondentID: user1.ID})
+	if err != nil {
+		fmt.Println("KURWA BOBER")
+	}
+	fmt.Println("PASS1: ", pass1)
+
+	pass2, err := database.CreatePass(&database.Pass{SurveyID: survey1.ID, RespondentID: user2.ID})
+	if err != nil {
+		fmt.Println("KURWA BOBER (2)")
+	}
+	fmt.Println("PASS2: ", pass2)
+
+	pass3, err := database.CreatePass(&database.Pass{SurveyID: survey2.ID, RespondentID: user2.ID})
+	if err != nil {
+		fmt.Println("KURWA BOBER (3)")
+	}
+	fmt.Println("PASS3: ", pass3)
+
+	// Create Answers
+
+	answer1, err := database.CreateAnswer(&database.Answer{PassID: pass1.ID, QuestionNumber: 1, AnswerText: "DA, AL0"})
+	if err != nil {
+		fmt.Println("KURWA SHISHKA")
+	}
+	fmt.Println("ANSWER1: ", answer1)
+
+	answer2, err := database.CreateAnswer(&database.Answer{PassID: pass1.ID, QuestionNumber: 2, AnswerText: "NET BLYAT!"})
+	if err != nil {
+		fmt.Println("KURWA SHISHKA (2)")
+	}
+	fmt.Println("ANSWER2: ", answer2)
+
+	answer3, err := database.CreateAnswer(&database.Answer{PassID: pass2.ID, QuestionNumber: 1, AnswerText: "SLUSHAYU?"})
+	if err != nil {
+		fmt.Println("KURWA SHISHKA (3)")
+	}
+	fmt.Println("ANSWER1: ", answer3)
+
+	answer4, err := database.CreateAnswer(&database.Answer{PassID: pass2.ID, QuestionNumber: 2, AnswerText: "POSHEL NAHUY, pidor."})
+	if err != nil {
+		fmt.Println("KURWA SHISHKA (4)")
+	}
+	fmt.Println("ANSWER1: ", answer4)
+
+	answer5, err := database.CreateAnswer(&database.Answer{PassID: pass3.ID, QuestionNumber: 1, AnswerText: "DA, DAL0"})
+	if err != nil {
+		fmt.Println("KURWA SHISHKA (5)")
+	}
+	fmt.Println("ANSWER1: ", answer5)
+
+	database.DeleteUser(user1)
+	database.DeleteUser(user2)
+}
+
+/*
 func InitTestValues() {
 	// Create site_users
 	if !database.IsExistUserByLogin("user1") {
@@ -156,4 +260,4 @@ func IsExistAnswer(pass_id uint32, survey_id uint32, question_number int32) bool
 	database.GetDataBase().Find(&answer, database.Answer{PassID: pass_id, SurveyID: survey_id, QuestionNumber: question_number}).Count(&count)
 
 	return count > 0
-}
+}*/

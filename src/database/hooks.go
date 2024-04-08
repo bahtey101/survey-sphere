@@ -7,9 +7,13 @@ import (
 )
 
 func (question *Question) BeforeCreate(dbase *gorm.DB) (err error) {
-	var result int32
-	row := GetDataBase().Table(QuestionTable).Where("survey_id = ?", question.SurveyID).Select("MAX(number)").Row()
-	err = row.Scan(&result)
-	question.Number = result + 1
-	return nil
+	var count int64
+	GetDataBase().Table("questions").Where(Question{SurveyID: question.SurveyID}).Count(&count)
+	question.Number = int32(count + 1)
+	return err
+}
+
+func (answer *Answer) BeforeCreate(dbase *gorm.DB) (err error) {
+	answer.SurveyID = GetPass(&Pass{ID: answer.PassID}).SurveyID
+	return err
 }
