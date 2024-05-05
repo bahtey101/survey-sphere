@@ -1,0 +1,23 @@
+.form_auth_block {
+    width: 400px;
+    height: 500px;
+    /* border: 1px solid black; */
+}
+
+.form_auth_block_head_text {
+    font-size: x-large;
+    color: #3b82f6;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+}
+
+.label {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.registration_text {
+    text-align: center;
+}
