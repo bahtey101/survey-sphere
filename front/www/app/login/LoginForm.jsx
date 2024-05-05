@@ -14,7 +14,9 @@ const LoginForm = () => {
         <Input type="password" />
         <BlueButton text="Войти"></BlueButton>
       </form>
-      <p className={styles.registration_text}>Впервые здесь? <Link href="/register">Зарегистрироваться</Link></p>
+      <p className={styles.registration_text}>
+        Впервые здесь? <Link href="/register">Зарегистрироваться</Link>
+      </p>
     </div>
   );
 };
