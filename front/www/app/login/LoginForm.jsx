@@ -1,4 +1,4 @@
-import styles from "./LoginForm.module.css";
+import styles from "./login-form.module.css";
 import BlueButton from "@/components/BlueButton";
 import Input from "@/components/Input";
 import Link from "next/link";
@@ -7,7 +7,6 @@ const LoginForm = () => {
   return (
     <div className={styles.form_auth_block}>
       <p className={styles.form_auth_block_head_text}>Вход в Survey Sphere</p>
-      {/* <p>Введите свою электронную почту и пароль для входа в аккаунт</p> */}
       <form action="">
         <label className={styles.label}>Почта</label>
         <Input type="email" placeholder="m@example.com" />
