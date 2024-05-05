@@ -1,10 +1,10 @@
-.form_auth_block {
+.form_reg_block {
     width: 400px;
     height: 400px;
     /* border: 1px solid black; */
 }
 
-.form_auth_block_head_text {
+.form_reg_block_head_text {
     font-size: x-large;
     color: #3b82f6;
     font-weight: bold;
@@ -18,7 +18,7 @@
     margin-bottom: 5px;
 }
 
-.registration_text {
+.authorization_text {
     text-align: center;
     font-size: small;
 }

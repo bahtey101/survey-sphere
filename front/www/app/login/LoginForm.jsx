@@ -15,7 +15,7 @@ const LoginForm = () => {
         <BlueButton text="Войти"></BlueButton>
       </form>
       <p className={styles.registration_text}>
-        Впервые здесь? <Link href="/register">Зарегистрироваться</Link>
+        Впервые здесь? <Link className={styles.link} href="/register">Зарегистрироваться</Link>
       </p>
     </div>
   );
