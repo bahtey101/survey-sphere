@@ -1,12 +1,17 @@
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 35px 20px;
-}
-
 .header {
     font-weight: bold;
     font-size: x-large;
-    padding-bottom: 10px;
+    padding: 50px auto 50px 0px;
+    margin: 50px 70px;
+}
+
+.cell {
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, 350px);
+    grid-auto-rows: 350px;
 }
