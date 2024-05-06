@@ -21,3 +21,8 @@ body {
 .blue_text {
     color: #3b82f6;
 }
+
+.background_image_triangles {
+    background-image: url("../../public/Triangles-4k.png");
+    background-size: 100% auto;
+}
