@@ -2,7 +2,7 @@ import styles from "@/styles/my_surveys/survey.module.css"
 import BlueButton from "@/components/BlueButton";
 
 const Survey = ({ topic, image_src }) => {
-    image_src = image_src || "https://www.al2uno.com/wp-content/uploads/2023/02/no-image-1536x1536.jpg";
+    image_src = image_src || "https://cdn11.bigcommerce.com/s-ucl2nc/images/stencil/1280x1280/c/placeholder-image__65448.original.jpg";
     return (
         <div className={styles.container}>
 
