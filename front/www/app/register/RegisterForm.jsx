@@ -1,4 +1,4 @@
-import styles from "@/app/_styles/auth_forms/main.module.css";
+import styles from "@/styles/auth_forms/main.module.css";
 import BlueButton from "@/components/BlueButton";
 import Input from "@/components/Input";
 import Link from "next/link";

@@ -23,6 +23,6 @@ body {
 }
 
 .background_image_triangles {
-    background-image: url("../../public/Triangles-4k.png");
+    background-image: url("../public/Triangles-4k.png");
     background-size: 100% auto;
 }
