@@ -1,0 +1,33 @@
+.header {
+    min-height: 60px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+}
+
+.header_container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin: 0px 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_container * {
+    font-size: x-large;
+    color: white;
+    text-decoration: none;
+}
+
+.site_name {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.exit_button {
+    font-size: medium;
+    border: 1px solid white;
+    padding: 6px;
+    border-radius: 6px;
+}
