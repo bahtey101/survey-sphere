@@ -16,7 +16,9 @@ const LoginForm = () => {
                 <Input type="password" />
                 <label className={styles.form_label}>Повторите пароль</label>
                 <Input type="password" />
-                <BlueButton text="Зарегистрироваться"></BlueButton>
+                <div style={{ marginTop: 15 }}>
+                    <BlueButton text="Зарегистрироваться"></BlueButton>
+                </div>
             </form>
             <p className={styles.form_small_centered_text}>
                 Уже есть аккаунт?{" "}

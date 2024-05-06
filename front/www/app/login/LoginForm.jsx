@@ -14,7 +14,9 @@ const LoginForm = () => {
                 <Input type="email" placeholder="m@example.com" />
                 <label className={styles.form_label}>Пароль</label>
                 <Input type="password" />
-                <BlueButton text="Войти"></BlueButton>
+                <div style={{ marginTop: 15 }}>
+                    <BlueButton text="Войти"></BlueButton>
+                </div>
             </form>
             <p className={styles.form_small_centered_text}>
                 Впервые здесь?{" "}
