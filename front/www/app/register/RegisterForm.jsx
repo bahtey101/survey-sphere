@@ -5,22 +5,25 @@ import Link from "next/link";
 
 const LoginForm = () => {
     return (
-        <div className={styles.form_auth_block}>
-            <p className={`${styles.form_auth_block_head_text} blue_text`}>
+        <div className={styles.form}>
+            <p className={`${styles.form_head_text} blue_text`}>
                 Регистрация в Survey Sphere
             </p>
             <form action="">
-                <label className={styles.label}>Почта</label>
+                <label className={styles.form_label}>Почта</label>
                 <Input type="email" placeholder="m@example.com" />
-                <label className={styles.label}>Пароль</label>
+                <label className={styles.form_label}>Пароль</label>
                 <Input type="password" />
-                <label className={styles.label}>Повторите пароль</label>
+                <label className={styles.form_label}>Повторите пароль</label>
                 <Input type="password" />
                 <BlueButton text="Зарегистрироваться"></BlueButton>
             </form>
-            <p className={styles.registration_text}>
+            <p className={styles.form_small_centered_text}>
                 Уже есть аккаунт?{" "}
-                <Link className={styles.link} href="/login">
+                <Link
+                    className={styles.form_small_centered_text_link}
+                    href="/login"
+                >
                     Войти
                 </Link>
             </p>

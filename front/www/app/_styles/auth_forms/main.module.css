@@ -1,25 +1,25 @@
-.form_auth_block {
+.form {
     width: 400px;
 }
 
-.form_auth_block_head_text {
+.form_head_text {
     font-size: x-large;
     font-weight: bold;
     text-align: center;
     margin: 0px;
 }
 
-.label {
+.form_label {
     display: inline-block;
     margin-top: 20px;
     margin-bottom: 5px;
 }
 
-.registration_text {
+.form_small_centered_text {
     text-align: center;
     font-size: small;
 }
 
-.link {
+.form_small_centered_text_link {
     font-size: small;
 }
