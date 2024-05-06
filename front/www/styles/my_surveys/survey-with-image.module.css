@@ -1,0 +1,26 @@
+.container {
+    background-color: #eaeaea;
+    display: inline-block;
+    position: relative;
+    border-radius: 15px;
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
+}
+
+.image {
+    width: 350px;
+    aspect-ratio: 16 / 9;
+}
+
+.place_for_name_and_button {
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+    position: relative;
+    height: 100px;
+    /* top: calc(2 / 3 * 100%);
+    height: calc(1 / 3 * 100%); */
+    background-color: white;
+}
+
+.survey_name {
+    padding: 10px;
+}
