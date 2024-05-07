@@ -12,6 +12,9 @@ export default function Home(children) {
             <p>
                 <Link href={"/mysurveys"}>Мои опросы</Link>
             </p>
+            <p>
+                <Link href={"/newsurvey"}>Новый опрос</Link>
+            </p>
         </main>
     );
 }
