@@ -1,13 +1,18 @@
-import styles from "@/styles/my_surveys/survey.module.css"
+import styles from "@/styles/my_surveys/survey.module.css";
 import BlueButton from "@/components/BlueButton";
+import Image from "next/image";
+import noImage from "@/public/no_image.jpg";
 
 const Survey = ({ topic, image_src }) => {
-    image_src = image_src || "https://cdn11.bigcommerce.com/s-ucl2nc/images/stencil/1280x1280/c/placeholder-image__65448.original.jpg";
+    image_src = image_src || noImage;
     return (
         <div className={styles.container}>
-
             <div className={styles.image}>
-                <img src={image_src} />
+                <Image
+                    alt="Картинка не загрузилась :("
+                    src={image_src}
+                    fill={true}
+                />
             </div>
 
             <div className={styles.info_container}>
@@ -18,7 +23,7 @@ const Survey = ({ topic, image_src }) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Survey;

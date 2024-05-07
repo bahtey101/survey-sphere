@@ -10,13 +10,14 @@
     overflow: hidden;
     max-width: 320px;
     height: 200px;
+    position: relative;
 
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
 }
 
 .image img {
-    object-fit: scale-down;
+    object-fit: cover;
     max-width: 100%;
 }
 
