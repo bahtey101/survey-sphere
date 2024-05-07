@@ -9,6 +9,8 @@ const Header = () => {
                     Survey Sphere
                 </Link>
 
+
+
                 <Link className={styles.exit_button} href={"/"}>
                     Выйти
                 </Link>

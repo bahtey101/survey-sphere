@@ -5,11 +5,8 @@
     margin: 50px 70px;
 }
 
-.cell {
-    text-align: center;
-}
-
 .grid {
+    margin-top: 50px;
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fill, 350px);

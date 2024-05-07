@@ -7,13 +7,11 @@ export default function Mysurveys(children) {
         <>
             <Header />
 
-            <div className={styles.header}>Мои опросы</div>
-
             <div className={styles.grid}>
-                <div className={styles.cell}><Survey topic={"123"} /></div>
-                <div className={styles.cell}><Survey topic={"222"} /></div>
-                <div className={styles.cell}><Survey topic={"333"} /></div>
-                <div className={styles.cell}><Survey topic={"5555555 555555555 5555555 555555 5555555 555555 55555555 555555555 55555555"} /></div>
+                <Survey topic={"123"} />
+                <Survey topic={"222"} />
+                <Survey topic={"333"} />
+                <Survey topic={"5555555 555555555 5555555 555555 5555555 555555 55555555 555555555 55555555"} />
             </div>
         </>
     );
