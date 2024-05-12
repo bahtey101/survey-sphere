@@ -15,6 +15,9 @@ export default function Home(children) {
             <p>
                 <Link href={"/newsurvey"}>Новый опрос</Link>
             </p>
+            <p>
+                <Link href={"/adminpanel"}>Панель администратора</Link>
+            </p>
         </main>
     );
 }
