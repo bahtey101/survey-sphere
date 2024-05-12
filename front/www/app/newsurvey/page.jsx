@@ -4,6 +4,7 @@ import Image from "next/image";
 import Input from "@/components/Input";
 import noImage from "@/public/no_image.jpg";
 import BlueButton from "@/components/BlueButton";
+import Checkbox from "@/components/Checkbox";
 
 export default function Newsurvey(children) {
     var image_src = image_src || noImage;
@@ -31,18 +32,14 @@ export default function Newsurvey(children) {
                         <label className={styles.question_label}>
                             Вопрос 2
                         </label>
-
                         <div className={styles.container_checkbox}>
-                            <input type="checkbox" id="2_1" />
-                            <label htmlFor="2_1">Вариант 1</label>
+                            <Checkbox text={"Вариант 1"} />
                         </div>
                         <div className={styles.container_checkbox}>
-                            <input type="checkbox" id="2_2" />
-                            <label htmlFor="2_2"> Вариант 2</label>
+                            <Checkbox text={"Вариант 2"} />
                         </div>
                         <div className={styles.container_checkbox}>
-                            <input type="checkbox" id="2_3" />
-                            <label htmlFor="2_3"> Вариант 3</label>
+                            <Checkbox text={"Вариант 3"} />
                         </div>
                     </div>
                     <div className={styles.container_button}>

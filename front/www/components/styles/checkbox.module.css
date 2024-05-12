@@ -1,0 +1,29 @@
+.custom_checkbox {
+    display: none;
+}
+
+.custom_checkbox+label {
+    position: relative;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.custom_checkbox+label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2;
+    width: 1em;
+    height: 1em;
+    border: 1px solid grey;
+    border-radius: 20%;
+}
+
+.custom_checkbox:checked+label::before {
+    border-color: #3b82f6;
+    background-image: url("../../public/check.svg");
+    background-size: contain;
+}
