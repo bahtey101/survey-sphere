@@ -10,4 +10,5 @@
 
 .blue_button:hover {
     background-color: #002ead;
+    cursor: pointer;
 }
