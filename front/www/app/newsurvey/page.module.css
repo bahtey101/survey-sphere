@@ -29,26 +29,13 @@
     font-weight: 650;
 }
 
-.container_image {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    min-width: 1280px;
-    min-height: 720px;
-}
-
 .image {
-    /* overflow: hidden;
-    max-width: 1280px;
-    min-width: 480px;
-    max-height: 720px;
-    min-height: 300px;
-    position: relative; */
     overflow: hidden;
     position: relative;
-    max-width: 100%;
+    max-width: 90%;
     max-height: 30%;
     min-height: 256px;
+    margin: 0 auto;
 }
 
 .image img {
