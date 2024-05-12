@@ -11,15 +11,17 @@ export default function Newsurvey(children) {
         <>
             <Header />
             <div className={styles.container}>
-                <div className={styles.container_image}>
-                    <div className={styles.image}>
-                        <Image
-                            alt="Картинка не загрузилась :("
-                            src={image_src}
-                            fill={true}
-                        />
-                    </div>
+                {/* <div className={styles.container_image}> */}
+                <div className={styles.image}>
+                    <Image
+                        alt="Картинка не загрузилась :("
+                        src={image_src}
+                        // fill={true}
+                        layout="fill"
+                        objectFit="cover"
+                    />
                 </div>
+                {/* </div> */}
                 <p className={styles.topic}>Название</p>
                 <form className={styles.container_questions}>
                     <div className={styles.question}>
