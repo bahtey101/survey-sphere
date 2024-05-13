@@ -6,6 +6,11 @@ body {
     margin: 0;
 }
 
+:root {
+    --main-blue-color: #3b82f6;
+    --main-border-radius: 16px;
+}
+
 .fullscreen_container {
     position: absolute;
     top: 0px;
@@ -19,7 +24,7 @@ body {
 }
 
 .blue_text {
-    color: #3b82f6;
+    color: var(--main-blue-color);
 }
 
 .background_image_triangles {
