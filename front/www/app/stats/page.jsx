@@ -39,18 +39,69 @@ export default function Stats(children) {
 
                 <p>Вопросы</p>
 
-                <div className={styles.questions}>
-                    <div className={styles.row}>
-                        1
-                    </div>
-                    <div className={styles.row}>
-                        2
-                    </div>
-                    <div className={styles.row}>
-                        3
-                    </div>
-                </div>
-            </div>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Номер вопроса</th>
+                            <th>Текст</th>
+                            <th>Количество ответов</th>
+                            <th>.json</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Вопрос 1</td>
+                            <td>100</td>
+                            <td>
+                                <div className={styles.button_container}>
+                                    <div className={styles.button_download} />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Вопрос 2</td>
+                            <td>80</td>
+                            <td>
+                                <div className={styles.button_container}>
+                                    <div className={styles.button_download} />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Вопрос 3</td>
+                            <td>120</td>
+                            <td>
+                                <div className={styles.button_container}>
+                                    <div className={styles.button_download} />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Вопрос 4</td>
+                            <td>90</td>
+                            <td>
+                                <div className={styles.button_container}>
+                                    <div className={styles.button_download} />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Вопрос 5</td>
+                            <td>30</td>
+                            <td>
+                                <div className={styles.button_container}>
+                                    <div className={styles.button_download} />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div >
         </>
     );
 }

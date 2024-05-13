@@ -2,6 +2,7 @@
     max-width: 900px;
     width: 100%;
     margin: 100px auto 0 auto;
+    padding-bottom: 100px;
 }
 
 .panel {
@@ -10,6 +11,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .grid {
@@ -43,27 +47,6 @@
     border-radius: 5px;
 }
 
-.row {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    border: 1px solid lightgray;
-    border-bottom: none;
-
-}
-
-.row:first-child {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-}
-
-.row:last-child {
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-    border-bottom: 1px solid lightgray;
-}
-
 .text {
     font-size: medium;
     margin-bottom: 15px;
@@ -78,4 +61,59 @@
     margin-top: 20px;
     font-size: small;
     color: gray;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+    border-spacing: 0;
+}
+
+.table tr {
+    height: 35px;
+}
+
+.table th {
+    text-align: center;
+    color: silver;
+}
+
+.table td,
+.table th {
+    padding: 0 10px;
+    text-align: center;
+}
+
+.table tbody>tr:not(:last-child) td {
+    border-bottom: 1px solid lightgray;
+}
+
+.table thead>tr:last-child th {
+    border-bottom: 2px solid lightgray;
+}
+
+.table td:first-child,
+.table th:first-child {
+    padding-left: var(--main-border-radius);
+}
+
+.table td:last-child,
+.table th:last-child {
+    padding-right: var(--main-border-radius);
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+}
+
+.button_download {
+    height: 30px;
+    width: 30px;
+    background-image: url("../../public/download.svg");
+    background-size: contain;
+    border-radius: 7px;
+    cursor: pointer;
 }
