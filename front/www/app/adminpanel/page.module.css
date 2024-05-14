@@ -123,7 +123,7 @@
 
 .container_button_delete {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .button_delete {
