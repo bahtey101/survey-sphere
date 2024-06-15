@@ -1,66 +1,53 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
-	"net/http"
-	"src/controllers"
-	"src/database"
+	"os"
+	"src/package/handler"
+	"src/package/repository"
+	"src/package/service"
+	"src/server"
+
+	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 func main() {
-	database.Init()
+	logrus.SetFormatter(new(logrus.JSONFormatter))
 
-	database.CreateTables()
+	if err := InitConfig(); err != nil {
+		logrus.Fatalf("error init configs: %s", err.Error())
+	}
 
-	var new_user = database.User{Login: "NikitOS", Password: "Dimon4eg"}
-	database.CreateUser(&new_user)
-	database.GetUser(&new_user)
-	router := gin.Default()
+	if err := godotenv.Load(); err != nil {
+		logrus.Fatalf("error loading env variables: %s", err.Error())
+	}
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "hello world"})
+	db, err := repository.NewPostsgresDB(repository.Config{
+		Host:     viper.GetString("db.host"),
+		Port:     viper.GetString("db.port"),
+		DBName:   viper.GetString("db.name"),
+		SSLMode:  viper.GetString("db.ssl_mode"),
+		Username: viper.GetString("db.username"),
+		Password: os.Getenv("DB_PASSWORD"),
 	})
+	if err != nil {
+		logrus.Fatalf("error init database: %s", err.Error())
+	}
 
-	router.GET("/users", controllers.FindUsers)
-	router.POST("/users", controllers.CreateUser)
-	router.GET("/users/:id", controllers.FindUser)
-	router.DELETE("/users/:id", controllers.DeleteUser)
+	repos := repository.NewRepository(db)
+	service := service.NewService(repos)
+	handler := handler.NewHandler(service)
 
-	router.Run()
-	// handler := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-	// 	resp := []byte(`{"status": "ok"}`)
-	// 	rw.Header().Set("Content-Type", "application/json")
-	// 	rw.Header().Set("Content-Length", fmt.Sprint(len(resp)))
-	// 	rw.Write(resp)
-	// })
+	server := new(server.Server)
+	if err := server.Run(viper.GetString("port"), handler.InitRoutes()); err != nil {
+		logrus.Fatalf("error occured while running http server: %s", err.Error())
+	}
 
-	// log.Println("Server is available at http://localhost:8000")
-	// log.Fatal(http.ListenAndServe(":8000", handler))
-	// tests.TEST_1()
-
-	//database.DeleteUser(user1)
-	//database.DeleteUser(user2)
 }
 
-func loginHandler(c *gin.Context) {
-	// Здесь вы можете выполнить проверку имени пользователя и пароля
-	// В нашем примере мы предполагаем, что пользователь успешно прошел аутентификацию
-
-	// Генерируем токен JWT
-	token := generateToken()
-
-	// Возвращаем токен как ответ
-	c.JSON(http.StatusOK, gin.H{"token": token})
-}
-
-func generateToken() string {
-	// Генерация токена JWT
-	// В реальном приложении вам нужно будет адаптировать это под свои нужды
-	// Здесь приведен простейший пример
-	token := jwt.New(jwt.SigningMethodHS256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["authorized"] = true
-	tokenString, _ := token.SignedString([]byte("your_secret_key"))
-	return tokenString
+func InitConfig() error {
+	viper.AddConfigPath("configs")
+	viper.SetConfigName("config")
+	return viper.ReadInConfig()
 }

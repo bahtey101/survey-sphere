@@ -1,0 +1,8 @@
+port: "8080"
+
+db: 
+  host: "194.226.49.210"
+  username: "sudo_user"
+  name: "survey_sphere_db"
+  port: "5432"
+  ssl_mode: "disable"
