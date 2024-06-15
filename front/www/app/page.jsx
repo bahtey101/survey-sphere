@@ -1,6 +1,21 @@
 import Link from "next/link";
 
-export default function Home(children) {
+async function getData() {
+    const res = await fetch("http://localhost:8080/users");
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+}
+
+export default async function Home(children) {
+    const data = await getData();
+
     return (
         <main>
             <p>
@@ -18,6 +33,7 @@ export default function Home(children) {
             <p>
                 <Link href={"/adminpanel"}>Панель администратора</Link>
             </p>
+            <p>User ID is: {data.data.ID}</p>
         </main>
     );
 }

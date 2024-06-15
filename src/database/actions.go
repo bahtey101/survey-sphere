@@ -1,5 +1,7 @@
 package database
 
+import "fmt"
+
 // CHECK
 
 func IsExistUser(user *User) bool {
@@ -110,6 +112,17 @@ func GetAnswer(answer *Answer) *Answer {
 		return nil
 	}
 	return answer
+}
+
+func GetUsers() *[]User {
+	var users = []User{}
+	err := GetDataBase().Find(users).Error
+	if err != nil {
+		return nil
+	}
+	fmt.Println("Юзвери")
+	fmt.Println(users)
+	return &users
 }
 
 // DELETE
