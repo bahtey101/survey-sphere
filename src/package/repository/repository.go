@@ -1,8 +1,14 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"src/models"
 
-type Authorization interface{}
+	"gorm.io/gorm"
+)
+
+type Authorization interface {
+	CreateUser(user models.User) (*models.User, error)
+}
 
 type Surveys interface{}
 
@@ -12,5 +18,7 @@ type Repository struct {
 }
 
 func NewRepository(DB *gorm.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Authorization: NewAuthPostgres(DB),
+	}
 }
