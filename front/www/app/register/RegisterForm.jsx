@@ -5,34 +5,62 @@ import BlueButton from "@/components/BlueButton";
 import Input from "@/components/Input";
 import Link from "next/link";
 import { post } from "@/utils/fething";
+import { useState } from "react";
 
 const RegisterForm = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const handleConfirmPasswordChange = (event) => {
+        setConfirmPassword(event.target.value);
+    };
+
     async function handleSubmit(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
-        for (var [_, value] of formData.entries()) {
-            if (value == "") {
-                return;
-            }
+
+        setEmailError("");
+        setPasswordError("");
+        setConfirmPasswordError("");
+
+        let formIsValid = true;
+
+        if (password != confirmPassword) {
+            setConfirmPasswordError("Пароли не совпадают");
+            formIsValid = false;
         }
-        let not_same_passwords = document.getElementById("not-same");
-        if (formData.get("password") == formData.get("password-again")) {
-            if (not_same_passwords != null) {
-                not_same_passwords.remove();
-            }
-            let response = post(process.env.NEXT_PUBLIC_SIGN_UP, {
-                login: formData.get("email"),
-                password: formData.get("password"),
+
+        if (!email.trim()) {
+            setEmailError("Введите почту");
+            formIsValid = false;
+        }
+
+        if (!password.trim()) {
+            setPasswordError("Введите пароль");
+            formIsValid = false;
+        }
+
+        if (!confirmPassword.trim()) {
+            setConfirmPasswordError("Введите пароль повторно");
+            formIsValid = false;
+        }
+
+        if (formIsValid) {
+            let response = await post(process.env.NEXT_PUBLIC_SIGN_UP, {
+                login: email,
+                password: password,
             });
-        } else {
-            if (not_same_passwords == null) {
-                let p = document.createElement("p");
-                p.className = styles.error_text;
-                p.id = "not-same";
-                p.innerText = "Пароли не совпадают";
-                let password_again = document.getElementById("password-again");
-                password_again.before(p);
-            }
         }
     }
 
@@ -43,14 +71,26 @@ const RegisterForm = () => {
             </p>
             <form action="" onSubmit={handleSubmit}>
                 <label className={styles.form_label}>Почта</label>
-                <Input type="email" name="email" placeholder="m@example.com" />
+                <p className={styles.error_text}>{emailError}</p>
+                <Input
+                    type="email"
+                    name="email"
+                    placeholder="m@example.com"
+                    onChange={handleEmailChange}
+                />
                 <label className={styles.form_label}>Пароль</label>
-                <Input type="password" name="password" />
-                <label className={styles.form_label}>Повторите пароль</label>
+                <p className={styles.error_text}>{passwordError}</p>
                 <Input
                     type="password"
-                    name="password-again"
-                    id="password-again"
+                    name="password"
+                    onChange={handlePasswordChange}
+                />
+                <label className={styles.form_label}>Повторите пароль</label>
+                <p className={styles.error_text}>{confirmPasswordError}</p>
+                <Input
+                    type="password"
+                    name="confirm-password"
+                    onChange={handleConfirmPasswordChange}
                 />
                 <div style={{ marginTop: 15 }}>
                     <BlueButton text="Зарегистрироваться"></BlueButton>

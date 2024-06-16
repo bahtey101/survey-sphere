@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
-const Input = ({ type, placeholder, id, name }) => {
+const Input = ({ type, placeholder, id, name, onChange }) => {
     return (
         <input
             type={type}
@@ -11,6 +11,7 @@ const Input = ({ type, placeholder, id, name }) => {
             name={name}
             className={styles.input}
             id={id}
+            onChange={onChange}
         ></input>
     );
 };
