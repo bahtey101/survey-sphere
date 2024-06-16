@@ -23,3 +23,9 @@
 .form_small_centered_text_link {
     font-size: small;
 }
+
+.error_text {
+    color: red;
+    font-size: smaller;
+    margin: 0;
+}

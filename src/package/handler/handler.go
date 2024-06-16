@@ -22,6 +22,7 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		auth.POST("/sign-up", handler.signUp)
 		auth.GET("/sign-up", func(ctx *gin.Context) {})
 		auth.POST("/sign-in", handler.signIn)
+		auth.GET("/sign-in", func(ctx *gin.Context) {})
 	}
 
 	api := router.Group("/api")

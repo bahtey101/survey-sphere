@@ -10,7 +10,7 @@ const LoginForm = () => {
         event.preventDefault();
         const formData = new FormData(event.target);
         if (formData.get("password") == formData.get("password-again")) {
-            let response = await fetch("http://localhost:8080/users", {
+            let response = await fetch("http://localhost:8080/auth/sign-up", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json;charset=utf-8",
@@ -23,7 +23,7 @@ const LoginForm = () => {
 
             let result = await response.json();
             console.log(result);
-            alert(result.id);
+            alert(result.data.id);
         }
     }
 
@@ -38,6 +38,7 @@ const LoginForm = () => {
                 <label className={styles.form_label}>Пароль</label>
                 <Input type="password" name="password" />
                 <label className={styles.form_label}>Повторите пароль</label>
+                <p className={styles.error_text}>Пароли не совпадают</p>
                 <Input type="password" name="password-again" />
                 <div style={{ marginTop: 15 }}>
                     <BlueButton text="Зарегистрироваться"></BlueButton>
