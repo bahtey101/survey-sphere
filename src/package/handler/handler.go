@@ -32,6 +32,7 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		{
 			surveys.GET("/", handler.getSurveys)
 			surveys.GET("/:id", handler.getSurvey)
+			surveys.GET("/new", func(ctx *gin.Context) {})
 			surveys.POST("/new", handler.createSurvey)
 		}
 

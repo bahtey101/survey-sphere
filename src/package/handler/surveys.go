@@ -7,12 +7,11 @@ import (
 )
 
 func (Handler *Handler) getSurveys(context *gin.Context) {
-	id, _ := context.Get(userCTX)
-	context.JSON(http.StatusOK, gin.H{"id": id})
 }
 
 func (handler *Handler) createSurvey(context *gin.Context) {
-
+	id, _ := context.Get(userCTX)
+	context.JSON(http.StatusOK, gin.H{"id": id})
 }
 
 func (handler *Handler) getSurvey(context *gin.Context) {
