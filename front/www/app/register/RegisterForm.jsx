@@ -10,7 +10,7 @@ const LoginForm = () => {
         event.preventDefault();
         const formData = new FormData(event.target);
         if (formData.get("password") == formData.get("password-again")) {
-            let response = await fetch("http://localhost:8080/auth/sign-up", {
+            let response = await fetch(process.env.NEXT_PUBLIC_SIGN_UP, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json;charset=utf-8",

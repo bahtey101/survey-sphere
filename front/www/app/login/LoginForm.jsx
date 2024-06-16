@@ -9,8 +9,7 @@ const LoginForm = () => {
     async function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-
-        let response = await fetch("http://localhost:8080/auth/sign-in", {
+        let response = await fetch(process.env.NEXT_PUBLIC_SIGN_IN, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
