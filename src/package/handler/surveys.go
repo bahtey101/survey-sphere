@@ -1,6 +1,15 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func (Handler *Handler) getSurveys(context *gin.Context) {
+	id, _ := context.Get(userCTX)
+	context.JSON(http.StatusOK, gin.H{"id": id})
+}
 
 func (handler *Handler) createSurvey(context *gin.Context) {
 

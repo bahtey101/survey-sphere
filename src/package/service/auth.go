@@ -2,6 +2,7 @@ package service
 
 import (
 	"crypto/sha256"
+	"errors"
 	"fmt"
 	"src/models"
 	"src/package/repository"
@@ -51,6 +52,26 @@ func (service *AuthService) GenerateToken(_user models.User) (string, error) {
 	})
 
 	return token.SignedString([]byte(signingKey))
+}
+
+func (service *AuthService) ParseToken(token string) (int, error) {
+	accessToken, err := jwt.ParseWithClaims(token, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return 0, errors.New("invalid signing method")
+		}
+
+		return []byte(signingKey), nil
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	claims, ok := accessToken.Claims.(*tokenClaims)
+	if !ok {
+		return 0, errors.New("token claims are not of type *tokenClaims")
+	}
+
+	return claims.UserId, nil
 }
 
 func (service *AuthService) hashPassword(password string) string {
