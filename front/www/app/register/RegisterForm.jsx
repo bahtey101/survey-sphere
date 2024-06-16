@@ -4,26 +4,35 @@ import styles from "@/styles/auth_forms/main.module.css";
 import BlueButton from "@/components/BlueButton";
 import Input from "@/components/Input";
 import Link from "next/link";
+import { post } from "@/utils/fething";
 
-const LoginForm = () => {
+const RegisterForm = () => {
     async function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
+        for (var [_, value] of formData.entries()) {
+            if (value == "") {
+                return;
+            }
+        }
+        let not_same_passwords = document.getElementById("not-same");
         if (formData.get("password") == formData.get("password-again")) {
-            let response = await fetch(process.env.NEXT_PUBLIC_SIGN_UP, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json;charset=utf-8",
-                },
-                body: JSON.stringify({
-                    login: formData.get("email"),
-                    password: formData.get("password"),
-                }),
+            if (not_same_passwords != null) {
+                not_same_passwords.remove();
+            }
+            let response = post(process.env.NEXT_PUBLIC_SIGN_UP, {
+                login: formData.get("email"),
+                password: formData.get("password"),
             });
-
-            let result = await response.json();
-            console.log(result);
-            alert(result.data.id);
+        } else {
+            if (not_same_passwords == null) {
+                let p = document.createElement("p");
+                p.className = styles.error_text;
+                p.id = "not-same";
+                p.innerText = "Пароли не совпадают";
+                let password_again = document.getElementById("password-again");
+                password_again.before(p);
+            }
         }
     }
 
@@ -38,8 +47,11 @@ const LoginForm = () => {
                 <label className={styles.form_label}>Пароль</label>
                 <Input type="password" name="password" />
                 <label className={styles.form_label}>Повторите пароль</label>
-                <p className={styles.error_text}>Пароли не совпадают</p>
-                <Input type="password" name="password-again" />
+                <Input
+                    type="password"
+                    name="password-again"
+                    id="password-again"
+                />
                 <div style={{ marginTop: 15 }}>
                     <BlueButton text="Зарегистрироваться"></BlueButton>
                 </div>
@@ -57,4 +69,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;
