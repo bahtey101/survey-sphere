@@ -30,10 +30,18 @@ func (handler Handler) InitRoutes() *gin.Engine {
 
 		surveys := api.Group("/mysurveys", handler.userIdentity)
 		{
+			surveys.POST("/", handler.createSurvey)
 			surveys.GET("/", handler.getSurveys)
 			surveys.GET("/:id", handler.getSurvey)
-			surveys.GET("/new", func(ctx *gin.Context) {})
-			surveys.POST("/new", handler.createSurvey)
+			surveys.DELETE("/:id", handler.deleteSurvey)
+
+			questions := surveys.Group(":id/questions")
+			{
+				questions.POST("/", handler.createQuestion)
+				questions.GET("/", handler.getQuestions)
+				questions.GET("/:question_id", handler.getQuestion)
+				questions.DELETE("/:question_id", handler.deleteQuestion)
+			}
 		}
 
 		// admin := api.Group("/admin")
