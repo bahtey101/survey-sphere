@@ -8,6 +8,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user models.User) (*models.User, error)
+	GetUser(user models.User) (*models.User, error)
 }
 
 type Surveys interface{}

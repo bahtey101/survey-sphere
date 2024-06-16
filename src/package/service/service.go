@@ -7,6 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user models.User) (*models.User, error)
+	GenerateToken(user models.User) (string, error)
 }
 
 type Surveys interface{}

@@ -21,3 +21,11 @@ func (postgres *AuthPostgres) CreateUser(user models.User) (*models.User, error)
 	}
 	return &user, nil
 }
+
+func (postgres *AuthPostgres) GetUser(user models.User) (*models.User, error) {
+	err := postgres.DB.Where(&user).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
