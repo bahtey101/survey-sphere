@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import Survey from "./Survey.jsx";
 import Header from "@/components/Header";
+import NewSurveyButton from "./NewSurveyButton";
 
 export default function Mysurveys(children) {
     return (
@@ -19,6 +20,7 @@ export default function Mysurveys(children) {
                 <Survey topic={"123"} />
                 <Survey topic={"222"} />
                 <Survey topic={"333"} />
+                <NewSurveyButton />
             </div>
         </>
     );

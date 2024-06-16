@@ -43,3 +43,28 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.container_new_survey_button {
+    height: 320px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grey_circle {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: silver;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.grey_circle:hover {
+    background-color: grey;
+}
