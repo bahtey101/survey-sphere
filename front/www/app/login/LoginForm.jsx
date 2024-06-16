@@ -4,25 +4,44 @@ import styles from "@/styles/auth_forms/main.module.css";
 import BlueButton from "@/components/BlueButton";
 import Input from "@/components/Input";
 import Link from "next/link";
+import { useState } from "react";
+import { post } from "@/utils/fething";
 
 const LoginForm = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
     async function handleSubmit(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
-        let response = await fetch(process.env.NEXT_PUBLIC_SIGN_IN, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({
-                login: formData.get("email"),
-                password: formData.get("password"),
-            }),
-        });
 
-        let result = await response.json();
-        console.log(result);
-        alert(result.token);
+        let formIsValid = true;
+
+        if (!email.trim()) {
+            setEmailError("Введите почту");
+            formIsValid = false;
+        }
+
+        if (!password.trim()) {
+            setPasswordError("Введите пароль");
+            formIsValid = false;
+        }
+
+        if (formIsValid) {
+            let response = await post(process.env.NEXT_PUBLIC_SIGN_IN, {
+                login: email,
+                password: password,
+            });
+        }
     }
 
     return (
@@ -32,9 +51,20 @@ const LoginForm = () => {
             </p>
             <form action="" onSubmit={handleSubmit}>
                 <label className={styles.form_label}>Почта</label>
-                <Input type="email" name="email" placeholder="m@example.com" />
+                <p className={styles.error_text}>{emailError}</p>
+                <Input
+                    type="email"
+                    name="email"
+                    placeholder="m@example.com"
+                    onChange={handleEmailChange}
+                />
                 <label className={styles.form_label}>Пароль</label>
-                <Input type="password" name="password" />
+                <p className={styles.error_text}>{passwordError}</p>
+                <Input
+                    type="password"
+                    name="password"
+                    onChange={handlePasswordChange}
+                />
                 <div style={{ marginTop: 15 }}>
                     <BlueButton text="Войти"></BlueButton>
                 </div>
