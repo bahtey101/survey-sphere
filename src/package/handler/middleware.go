@@ -12,14 +12,34 @@ const (
 	userCTX             = "userID"
 )
 
-func (handler *Handler) userIdentity(context *gin.Context) {
-	cookie, err := context.Cookie("token")
-	if err != nil {
+// func (handler *Handler) userIdentity(context *gin.Context) {
+// 	cookie, err := context.Cookie("token")
+// 	if err != nil {
+// 		context.JSON(http.StatusBadRequest, gin.H{"error": "user is not authenticated"})
+// 		return
+// 	}
+
+// 	userID, err := handler.service.Authorization.ParseToken(cookie)
+// 	if err != nil {
+// 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	context.Set(userCTX, userID)
+// }
+
+func (handler *Handler) _userIdentity(context *gin.Context) {
+	type inputToken struct {
+		token string `json:"token" binding:"required"`
+	}
+	var input inputToken
+
+	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "user is not authenticated"})
 		return
 	}
 
-	userID, err := handler.service.Authorization.ParseToken(cookie)
+	userID, err := handler.service.Authorization.ParseToken(input.token)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
