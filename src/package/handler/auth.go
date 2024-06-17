@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 	"src/models"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -50,17 +49,8 @@ func (handler *Handler) signIn(context *gin.Context) {
 		return
 	}
 
-	// context.JSON(http.StatusOK, gin.H{"token": token})
-	// context.SetCookie("token", token, time.Now().Add(time.Hour), "/", "localhost", false, true)
-	// Устанавливаем токен в куки
-	cookie := &http.Cookie{
-		Name:     "jwt",
-		Value:    token,
-		Expires:  time.Now().Add(5 * time.Minute),
-		HttpOnly: true,
-	}
-	http.SetCookie(context.Writer, cookie)
-	huy, _ := context.Cookie("jwt")
-	context.JSON(http.StatusOK, huy)
+	// sending cookies
+	context.SetCookie("token", token, 60*60*24, "/", "localhost", false, true)
 
+	context.JSON(http.StatusOK, gin.H{"token": token})
 }

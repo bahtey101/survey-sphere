@@ -1,11 +1,14 @@
 package main
 
 import (
+	"context"
 	"os"
+	"os/signal"
 	"src/package/handler"
 	"src/package/repository"
 	"src/package/service"
 	"src/server"
+	"syscall"
 
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
@@ -40,10 +43,23 @@ func main() {
 	handler := handler.NewHandler(service)
 
 	server := new(server.Server)
-	if err := server.Run(viper.GetString("port"), handler.InitRoutes()); err != nil {
-		logrus.Fatalf("error occured while running http server: %s", err.Error())
-	}
+	go func() {
+		if err := server.Run(viper.GetString("port"), handler.InitRoutes()); err != nil {
+			logrus.Fatalf("error occured while running http server: %s", err.Error())
+		}
+	}()
 
+	logrus.Print("APP Started")
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
+	<-quit
+
+	logrus.Print("APP Shutting Down")
+
+	if err := server.Shutdown(context.Background()); err != nil {
+		logrus.Errorf("error occured on server shutting down: %s", err.Error())
+	}
 }
 
 func InitConfig() error {

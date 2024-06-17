@@ -3,7 +3,6 @@ package handler
 import (
 	"errors"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,19 +13,13 @@ const (
 )
 
 func (handler *Handler) userIdentity(context *gin.Context) {
-	header := context.GetHeader(authorizationHeader)
-	if header == "" {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "empty auth header"})
+	cookie, err := context.Cookie("token")
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "user is not authenticated"})
 		return
 	}
 
-	headerParts := strings.Split(header, " ")
-	if len(headerParts) != 2 {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "invalid auth header"})
-		return
-	}
-
-	userID, err := handler.service.Authorization.ParseToken(headerParts[1])
+	userID, err := handler.service.Authorization.ParseToken(cookie)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

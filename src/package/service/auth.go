@@ -54,8 +54,8 @@ func (service *AuthService) GenerateToken(_user models.User) (string, error) {
 	return token.SignedString([]byte(signingKey))
 }
 
-func (service *AuthService) ParseToken(token string) (int, error) {
-	accessToken, err := jwt.ParseWithClaims(token, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
+func (service *AuthService) ParseToken(accessToken string) (int, error) {
+	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return 0, errors.New("invalid signing method")
 		}
@@ -66,7 +66,7 @@ func (service *AuthService) ParseToken(token string) (int, error) {
 		return 0, err
 	}
 
-	claims, ok := accessToken.Claims.(*tokenClaims)
+	claims, ok := token.Claims.(*tokenClaims)
 	if !ok {
 		return 0, errors.New("token claims are not of type *tokenClaims")
 	}
