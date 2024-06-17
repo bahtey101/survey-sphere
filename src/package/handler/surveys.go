@@ -14,18 +14,18 @@ type SurveyInput struct {
 }
 
 func (handler *Handler) createSurvey(context *gin.Context) {
-	id, err := getUserID(context)
+	userID, err := getUserID(context)
 	if err != nil {
 		return
 	}
+	input := models.Survey{CreatorID: userID}
 
-	var input models.Survey
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	survey, err := handler.service.Surveys.CreateSurvey(id, input)
+	survey, err := handler.service.Surveys.CreateSurvey(input)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -40,7 +40,7 @@ func (handler *Handler) getSurveys(context *gin.Context) {
 		return
 	}
 
-	surveys, err := handler.service.Surveys.GetSurveys(id)
+	surveys, err := handler.service.Surveys.GetSurveys(models.Survey{CreatorID: id})
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

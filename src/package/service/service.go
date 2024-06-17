@@ -12,9 +12,9 @@ type Authorization interface {
 }
 
 type Surveys interface {
-	CreateSurvey(userID int, survey models.Survey) (*models.Survey, error)
+	CreateSurvey(survey models.Survey) (*models.Survey, error)
 	GetSurvey(survey models.Survey) (*models.Survey, error)
-	GetSurveys(userID int) (*[]models.Survey, error)
+	GetSurveys(survey models.Survey) (*[]models.Survey, error)
 	DeleteSurvey(survey models.Survey) (*models.Survey, error)
 }
 
@@ -25,10 +25,23 @@ type Questions interface {
 	DeleteQuestion(question models.Question) (*models.Question, error)
 }
 
+type Passes interface {
+	CreatePass(pass models.Pass) (*models.Pass, error)
+	GetPass(pass models.Pass) (*models.Pass, error)
+	GetPasses(pass models.Pass) (*[]models.Pass, error)
+}
+
+type Answers interface {
+	CreateAnswer(answer models.Answer) (*models.Answer, error)
+	GetAnswers(answer models.Answer) (*[]models.Answer, error)
+}
+
 type Service struct {
 	Authorization
 	Surveys
 	Questions
+	Passes
+	Answers
 }
 
 func NewService(repos *repository.Repository) *Service {

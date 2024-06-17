@@ -14,7 +14,7 @@ func NewSurveyPostgres(DB *gorm.DB) *SurveyPostgres {
 	return &SurveyPostgres{DB: DB}
 }
 
-func (postgres *SurveyPostgres) CreateSurvey(userID int, survey models.Survey) (*models.Survey, error) {
+func (postgres *SurveyPostgres) CreateSurvey(survey models.Survey) (*models.Survey, error) {
 	err := postgres.DB.Create(&survey).Error
 	if err != nil {
 		return nil, err
@@ -30,9 +30,9 @@ func (postgres *SurveyPostgres) GetSurvey(survey models.Survey) (*models.Survey,
 	return &survey, nil
 }
 
-func (postgres *SurveyPostgres) GetSurveys(userID int) (*[]models.Survey, error) {
+func (postgres *SurveyPostgres) GetSurveys(survey models.Survey) (*[]models.Survey, error) {
 	var surveys []models.Survey
-	err := postgres.DB.Where("creator_id = ?", userID).Find(&surveys).Error
+	err := postgres.DB.Where("creator_id = ?", survey.CreatorID).Find(&surveys).Error
 	if err != nil {
 		return nil, err
 	}

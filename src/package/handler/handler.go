@@ -28,7 +28,7 @@ func (handler Handler) InitRoutes() *gin.Engine {
 	api := router.Group("/api")
 	{
 
-		surveys := api.Group("/mysurveys", handler.userIdentity)
+		surveys := api.Group("/surveys", handler.userIdentity)
 		{
 			surveys.POST("/", handler.createSurvey)
 			surveys.GET("/", handler.getSurveys)
@@ -41,6 +41,19 @@ func (handler Handler) InitRoutes() *gin.Engine {
 				questions.GET("/", handler.getQuestions)
 				questions.GET("/:question_id", handler.getQuestion)
 				questions.DELETE("/:question_id", handler.deleteQuestion)
+			}
+		}
+
+		passes := api.Group("/passes")
+		{
+			passes.POST("/", handler.createPass)
+			passes.GET("/", handler.getPasses)
+			passes.GET("/:id", handler.getPass)
+
+			answers := passes.Group(":id/answers")
+			{
+				answers.POST("/", handler.createAnswer)
+				answers.GET("/", handler.getAnswers)
 			}
 		}
 
