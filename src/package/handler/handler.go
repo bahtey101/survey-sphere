@@ -69,38 +69,39 @@ func (handler Handler) InitRoutes() *gin.Engine {
 			auth.POST("/sign-up", handler.signUp)
 			auth.POST("/sign-in", handler.signIn)
 		}
+	}
 
-		api := router.Group("/api")
+	api := router.Group("/api")
+	{
+		surveys := api.Group("/surveys")
 		{
-			surveys := api.Group("/surveys")
+			surveys.POST("/", handler.getSurveys)
+			surveys.POST("/new", handler.createSurvey)
+
+			questions := surveys.Group("/:id")
 			{
-				surveys.POST("/", handler.getSurveys)
-				surveys.POST("/new", handler.createSurvey)
-
-				questions := surveys.Group("/:id")
-				{
-					questions.POST("/")
-					questions.POST("/new")
-				}
+				questions.POST("/")
+				questions.POST("/new")
 			}
-
-			passes := router.Group("/passes")
-			{
-				passes.POST("/new")
-
-				answers := passes.Group("/:id")
-				{
-					answers.POST("/")
-					answers.POST("/new")
-				}
-			}
-
-			// admin := router.Group("/admin")
-			// {
-			// 	admin.POST("/users", handler.getUsers)
-			// 	admin.POST("/surveys", handler.getAllSurveys)
-			// }
 		}
+
+		passes := router.Group("/passes")
+		{
+			passes.POST("/")
+			passes.POST("/new")
+
+			answers := passes.Group("/:id")
+			{
+				answers.POST("/")
+				answers.POST("/new")
+			}
+		}
+
+		// admin := router.Group("/admin")
+		// {
+		// 	admin.POST("/users", handler.getUsers)
+		// 	admin.POST("/surveys", handler.getAllSurveys)
+		// }
 	}
 
 	return router
