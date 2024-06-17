@@ -1,9 +1,14 @@
+"use client";
+
 import styles from "./page.module.css";
 import Survey from "./Survey.jsx";
 import Header from "@/components/Header";
 import NewSurveyButton from "./NewSurveyButton";
+import { get } from "@/utils/fething";
 
 export default function Mysurveys(children) {
+    // let response = await get(NEXT_PUBLIC_SURVEYS, {});
+
     return (
         <>
             <Header />

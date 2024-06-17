@@ -41,6 +41,7 @@ const LoginForm = () => {
                 login: email,
                 password: password,
             });
+            console.log(response);
         }
     }
 
