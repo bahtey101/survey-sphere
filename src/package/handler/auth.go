@@ -8,6 +8,7 @@ import (
 )
 
 type UserInput struct {
+	Token    string `json:"Token`
 	Login    string `json:"login" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
@@ -17,6 +18,11 @@ func (handler *Handler) signUp(context *gin.Context) {
 
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if input.Token != "" {
+		context.JSON(http.StatusOK, gin.H{"error": "already authz"})
 		return
 	}
 
@@ -37,6 +43,11 @@ func (handler *Handler) signIn(context *gin.Context) {
 
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if input.Token != "" {
+		context.JSON(http.StatusOK, gin.H{"error": "already authz"})
 		return
 	}
 
