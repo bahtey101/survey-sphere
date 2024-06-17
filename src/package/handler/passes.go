@@ -18,7 +18,7 @@ func (handler *Handler) createPass(context *gin.Context) {
 	if err != nil {
 		return
 	}
-	input := models.Pass{RespondentID: userID}
+	input := models.Pass{RespondentID: uint32(userID)}
 
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

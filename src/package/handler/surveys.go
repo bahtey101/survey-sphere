@@ -18,7 +18,7 @@ func (handler *Handler) createSurvey(context *gin.Context) {
 	if err != nil {
 		return
 	}
-	input := models.Survey{CreatorID: userID}
+	input := models.Survey{CreatorID: uint32(userID)}
 
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -40,7 +40,7 @@ func (handler *Handler) getSurveys(context *gin.Context) {
 		return
 	}
 
-	surveys, err := handler.service.Surveys.GetSurveys(models.Survey{CreatorID: id})
+	surveys, err := handler.service.Surveys.GetSurveys(models.Survey{CreatorID: uint32(id)})
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
