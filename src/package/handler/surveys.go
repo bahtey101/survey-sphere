@@ -9,7 +9,7 @@ import (
 
 type SurveyInput struct {
 	Token string `json:"token" binding:"required"`
-	Topic string `json:"topic" binding:"required"`
+	Topic string `json:"topic"`
 }
 
 func (handler *Handler) createSurvey(context *gin.Context) {
@@ -57,4 +57,26 @@ func (handler *Handler) getSurveys(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusOK, gin.H{"surveys": surveys})
+}
+
+func (handler *Handler) getSurveyPasses(context *gin.Context) {
+	var input SurveyInput
+	if err := context.BindJSON(&input); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	userID, err := handler.service.Authorization.ParseToken(input.Token)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	passes, err := handler.service.Surveys.GetSurveyPasses(models.Survey{CreatorID: uint32(userID)})
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"surveys": passes})
 }

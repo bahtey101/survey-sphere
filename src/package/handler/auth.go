@@ -8,7 +8,7 @@ import (
 )
 
 type UserInput struct {
-	Token    string `json:"Token`
+	Token    string `json:"Token"`
 	Login    string `json:"login" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }

@@ -52,3 +52,13 @@ func (postgres *SurveyPostgres) DeleteSurvey(_survey models.Survey) (*models.Sur
 
 	return survey, nil
 }
+
+func (postgres *SurveyPostgres) GetSurveyPasses(survey models.Survey) (*[]models.Pass, error) {
+	var passes *[]models.Pass
+	err := postgres.DB.Where("survey_id = ?").Find(&passes).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return passes, nil
+}

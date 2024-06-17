@@ -17,52 +17,6 @@ func NewHandler(service *service.Service) *Handler {
 func (handler Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	// auth := router.Group("/auth")
-	// {
-	// 	auth.POST("/sign-up", handler.signUp)
-	// 	auth.GET("/sign-up", func(ctx *gin.Context) {})
-	// 	auth.POST("/sign-in", handler.signIn)
-	// 	auth.GET("/sign-in", func(ctx *gin.Context) {})
-	// }
-
-	// //api := router.Group("/api", handler.userIdentity)
-	// api := router.Group("/api")
-	// {
-
-	// 	surveys := api.Group("/surveys")
-	// 	{
-	// 		surveys.POST("/", handler.createSurvey)
-	// 		surveys.GET("/", handler.getSurveys)
-	// 		surveys.GET("/:id", handler.getSurvey)
-	// 		surveys.DELETE("/:id", handler.deleteSurvey)
-
-	// 		questions := surveys.Group(":id/questions")
-	// 		{
-	// 			questions.POST("/", handler.createQuestion)
-	// 			questions.GET("/", handler.getQuestions)
-	// 			questions.GET("/:question_id", handler.getQuestion)
-	// 			questions.DELETE("/:question_id", handler.deleteQuestion)
-	// 		}
-	// 	}
-
-	// 	passes := api.Group("/passes")
-	// 	{
-	// 		passes.POST("/", handler.createPass)
-	// 		passes.GET("/", handler.getPasses)
-	// 		passes.GET("/:id", handler.getPass)
-
-	// 		answers := passes.Group(":id/answers")
-	// 		{
-	// 			answers.POST("/", handler.createAnswer)
-	// 			answers.GET("/", handler.getAnswers)
-	// 		}
-	// 	}
-
-	// admin := api.Group("/admin")
-	// {
-	// 	admin.GET("/", handler.)
-	// }
-
 	auth := router.Group("/auth")
 	{
 		{
@@ -77,23 +31,25 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		{
 			surveys.POST("/", handler.getSurveys)
 			surveys.POST("/new", handler.createSurvey)
+			surveys.POST("/get", handler.getSurveyPasses)
 
 			questions := surveys.Group("/:id")
 			{
-				questions.POST("/")
-				questions.POST("/new")
+				questions.POST("/get", handler.getSurveyPasses)
+				questions.POST("/questions", handler.getQuestions)
+				questions.POST("/new", handler.createQuestion)
 			}
 		}
 
 		passes := router.Group("/passes")
 		{
-			passes.POST("/")
-			passes.POST("/new")
+			passes.POST("/", handler.getPasses)
+			passes.POST("/new", handler.createPass)
 
 			answers := passes.Group("/:id")
 			{
-				answers.POST("/")
-				answers.POST("/new")
+				answers.POST("/", handler.getAnswers)
+				answers.POST("/new", handler.createAnswer)
 			}
 		}
 
