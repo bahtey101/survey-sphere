@@ -15,7 +15,6 @@ type QuestionInput struct {
 
 func (handler *Handler) createQuestion(context *gin.Context) {
 	var input QuestionInput
-
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

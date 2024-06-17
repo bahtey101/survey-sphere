@@ -15,6 +15,10 @@ func NewAnwserPosgtres(DB *gorm.DB) *AnswerPostgres {
 }
 
 func (postgres *AnswerPostgres) CreateAnswer(answer models.Answer) (*models.Answer, error) {
+	pass := models.Pass{ID: answer.PassID}
+	postgres.DB.First(&pass)
+	answer.SurveyID = pass.SurveyID
+
 	err := postgres.DB.Create(&answer).Error
 	if err != nil {
 		return nil, err

@@ -25,10 +25,10 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		auth.GET("/sign-in", func(ctx *gin.Context) {})
 	}
 
-	api := router.Group("/api")
+	api := router.Group("/api", handler.userIdentity)
 	{
 
-		surveys := api.Group("/surveys", handler.userIdentity)
+		surveys := api.Group("/surveys")
 		{
 			surveys.POST("/", handler.createSurvey)
 			surveys.GET("/", handler.getSurveys)
