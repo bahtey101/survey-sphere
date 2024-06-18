@@ -93,6 +93,10 @@ func (service *AuthService) CheckRole(user models.User) bool {
 	return false
 }
 
+func (service *AuthService) GetUser(user models.User) (*models.User, error) {
+	return service.repos.GetUser(user)
+}
+
 func (service *AuthService) DeleteUser(user models.User) (*models.User, error) {
 	return service.repos.DeleteUser(user)
 }

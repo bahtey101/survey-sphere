@@ -9,6 +9,7 @@ type Authorization interface {
 	CreateUser(user models.User) (*models.User, error)
 	GenerateToken(user models.User) (string, error)
 	ParseToken(token string) (int, error)
+	GetUser(models.User) (*models.User, error)
 
 	// admin's method
 	GetUsers() (*[]models.User, error)

@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"src/models"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,6 +42,12 @@ func (handler *Handler) getUsers(context *gin.Context) {
 }
 
 func (handler *Handler) getAllSurveys(context *gin.Context) {
+	type result struct {
+		ID           uint32    `json:"survey_id"`
+		Login        string    `json:"login"`
+		CreationTime time.Time `json:"creation_time"`
+	}
+
 	var input AdminInput
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -65,7 +72,21 @@ func (handler *Handler) getAllSurveys(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"surveys": surveys})
+	var results []result
+	for _, survey := range *surveys {
+		user, err := handler.service.GetUser(models.User{ID: survey.CreatorID})
+		if err != nil {
+			context.JSON(http.StatusInternalServerError, gin.H{"error": "get user error"})
+			return
+		}
+		results = append(results, result{
+			ID:           survey.ID,
+			Login:        user.Login,
+			CreationTime: survey.CreationTime,
+		})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"surveys": results})
 }
 
 func (handler *Handler) deleteUser(context *gin.Context) {
