@@ -65,11 +65,11 @@ func (handler *Handler) getQuestions(context *gin.Context) {
 		return
 	}
 
-	question, err := handler.service.Questions.GetQuestions(models.Question{SurveyID: uint32(surveyID)})
+	questions, err := handler.service.Questions.GetQuestions(models.Question{SurveyID: uint32(surveyID)})
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"survey": question})
+	context.JSON(http.StatusOK, gin.H{"questions": questions})
 }

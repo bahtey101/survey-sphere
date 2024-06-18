@@ -32,7 +32,7 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		{
 			surveys.POST("/", handler.getSurveys)
 			surveys.POST("/new", handler.createSurveyWithQuestions)
-			surveys.POST("/survey/:id", handler.getQuestions)
+			surveys.POST("/survey/:id", handler.getSurveyWithQuestions)
 
 			questions := surveys.Group("/:id")
 			{

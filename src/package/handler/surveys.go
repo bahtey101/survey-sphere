@@ -128,6 +128,51 @@ func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"user_id": userID})
 }
 
+// params:
+// + Token(json),
+// + survey_id(context)
+// returns:
+// - user.ID,
+// - survey.Topic
+// - []questions
+func (handler *Handler) getSurveyWithQuestions(context *gin.Context) {
+	var input SurveyInput
+	if err := context.BindJSON(&input); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	userID, err := handler.service.Authorization.ParseToken(input.Token)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	surveyID, err := strconv.ParseUint(context.Param("id"), 10, 32)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "invalid survey id param"})
+		return
+	}
+
+	survey, err := handler.service.Surveys.GetSurvey(models.Survey{ID: uint32(surveyID)})
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	questions, err := handler.service.Questions.GetQuestions(models.Question{SurveyID: survey.ID})
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{
+		"topic":     survey.Topic,
+		"questions": questions,
+		"user_id":   userID,
+	})
+}
+
 func (handler *Handler) deleteSurvey(context *gin.Context) {
 	var input SurveyInput
 	if err := context.BindJSON(&input); err != nil {
@@ -147,7 +192,7 @@ func (handler *Handler) deleteSurvey(context *gin.Context) {
 		return
 	}
 
-	survey, err := handler.service.DeleteSurvey(models.Survey{ID: uint32(surveyID)})
+	survey, err := handler.service.Surveys.DeleteSurvey(models.Survey{ID: uint32(surveyID)})
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
