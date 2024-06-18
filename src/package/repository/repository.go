@@ -9,6 +9,10 @@ import (
 type Authorization interface {
 	CreateUser(user models.User) (*models.User, error)
 	GetUser(user models.User) (*models.User, error)
+
+	// admin's method
+	GetUsers() (*[]models.User, error)
+	GetRole(user models.User) (*models.UserRole, error)
 }
 
 type Surveys interface {
@@ -17,6 +21,9 @@ type Surveys interface {
 	GetSurveys(survey models.Survey) (*[]models.Survey, error)
 	DeleteSurvey(survey models.Survey) (*models.Survey, error)
 	GetSurveyPasses(survey models.Survey) (*[]models.Pass, error)
+
+	// admin's method
+	GetAllSurveys() (*[]models.Survey, error)
 }
 
 type Questions interface {
@@ -49,5 +56,8 @@ func NewRepository(DB *gorm.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(DB),
 		Surveys:       NewSurveyPostgres(DB),
+		Questions:     NewQuestionPostgres(DB),
+		Passes:        NewPassPostrgres(DB),
+		Answers:       NewAnwserPosgtres(DB),
 	}
 }

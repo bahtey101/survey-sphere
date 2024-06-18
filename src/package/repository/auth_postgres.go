@@ -29,3 +29,20 @@ func (postgres *AuthPostgres) GetUser(user models.User) (*models.User, error) {
 	}
 	return &user, nil
 }
+
+func (postgres *AuthPostgres) GetUsers() (*[]models.User, error) {
+	var users *[]models.User
+	err := postgres.DB.Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (posgres *AuthPostgres) GetRole(user models.User) (*models.UserRole, error) {
+	err := posgres.DB.First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user.Role, nil
+}

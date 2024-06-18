@@ -32,3 +32,7 @@ func (service *SurveyService) DeleteSurvey(survey models.Survey) (*models.Survey
 func (service *SurveyService) GetSurveyPasses(survey models.Survey) (*[]models.Pass, error) {
 	return service.repos.GetSurveyPasses(survey)
 }
+
+func (service *SurveyService) GetAllSurveys() (*[]models.Survey, error) {
+	return service.repos.GetAllSurveys()
+}

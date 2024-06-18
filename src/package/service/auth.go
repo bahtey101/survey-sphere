@@ -80,3 +80,15 @@ func (service *AuthService) hashPassword(password string) string {
 
 	return fmt.Sprintf("%x", hash.Sum([]byte(salt)))
 }
+
+func (service *AuthService) GetUsers() (*[]models.User, error) {
+	return service.repos.GetUsers()
+}
+
+func (service *AuthService) CheckRole(user models.User) bool {
+	role, err := service.repos.GetRole(user)
+	if err == nil && *role == models.Admin {
+		return true
+	}
+	return false
+}

@@ -62,3 +62,12 @@ func (postgres *SurveyPostgres) GetSurveyPasses(survey models.Survey) (*[]models
 
 	return passes, nil
 }
+
+func (postgres *SurveyPostgres) GetAllSurveys() (*[]models.Survey, error) {
+	var surveys *[]models.Survey
+	err := postgres.DB.Find(&surveys).Error
+	if err != nil {
+		return nil, err
+	}
+	return surveys, nil
+}

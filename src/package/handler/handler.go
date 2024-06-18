@@ -53,11 +53,11 @@ func (handler Handler) InitRoutes() *gin.Engine {
 			}
 		}
 
-		// admin := router.Group("/admin")
-		// {
-		// 	admin.POST("/users", handler.getUsers)
-		// 	admin.POST("/surveys", handler.getAllSurveys)
-		// }
+		admin := router.Group("/admin")
+		{
+			admin.POST("/users", handler.getUsers)
+			admin.POST("/surveys", handler.getAllSurveys)
+		}
 	}
 
 	return router

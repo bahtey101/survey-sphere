@@ -6,11 +6,12 @@ import (
 )
 
 type AnswerService struct {
-	repos repository.Answers
+	repos     repository.Answers
+	passRepos repository.Passes
 }
 
-func NewAnswerService(repos *repository.Answers) *AnswerService {
-	return &AnswerService{repos: *repos}
+func NewAnswerService(repos *repository.Answers, passRepos *repository.Passes) *AnswerService {
+	return &AnswerService{repos: *repos, passRepos: *passRepos}
 }
 
 func (service *AnswerService) CreateAnswer(answer models.Answer) (*models.Answer, error) {
