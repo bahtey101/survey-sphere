@@ -84,12 +84,9 @@ func (handler *Handler) getSurveyPasses(context *gin.Context) {
 
 func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {
 	var input struct {
-		Token     string `json:"token" binding:"required"`
-		Topic     string `json:"topic" binding:"required"`
-		Questions []struct {
-			Number       int32  `json:"number"`
-			QuestionText string `json:"question_text"`
-		} `json:"questions" binding:"required"`
+		Token     string   `json:"token" binding:"required"`
+		Topic     string   `json:"topic" binding:"required"`
+		Questions []string `json:"question" binding:"required"`
 	}
 
 	if err := context.BindJSON(&input); err != nil {
@@ -113,11 +110,11 @@ func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {
 	}
 
 	var questions []models.Question
-	for _, question := range input.Questions {
+	for index, question := range input.Questions {
 		questions = append(questions, models.Question{
 			SurveyID:     uint32(survey.ID),
-			Number:       question.Number,
-			QuestionText: question.QuestionText,
+			Number:       int32(index) + 1,
+			QuestionText: question,
 			Type:         models.WithText,
 		})
 	}
