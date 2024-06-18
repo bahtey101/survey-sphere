@@ -142,7 +142,7 @@ func (handler *Handler) getSurveyWithQuestions(context *gin.Context) {
 		return
 	}
 
-	userID, err := handler.service.Authorization.ParseToken(input.Token)
+	_, err := handler.service.Authorization.ParseToken(input.Token)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -169,7 +169,6 @@ func (handler *Handler) getSurveyWithQuestions(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"topic":     survey.Topic,
 		"questions": questions,
-		"user_id":   userID,
 	})
 }
 
