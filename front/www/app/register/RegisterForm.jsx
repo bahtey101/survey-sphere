@@ -6,6 +6,7 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import { post } from "@/utils/fething";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
     const [email, setEmail] = useState("");
@@ -14,6 +15,8 @@ const RegisterForm = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+    const router = useRouter();
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -61,6 +64,8 @@ const RegisterForm = () => {
                 login: email,
                 password: password,
             });
+
+            router.push("/login");
         }
     }
 
