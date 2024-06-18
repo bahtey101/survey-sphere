@@ -54,6 +54,8 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		{
 			admin.POST("/users", handler.getUsers)
 			admin.POST("/surveys", handler.getAllSurveys)
+			admin.DELETE("/users/:id", handler.deleteUser)
+			admin.DELETE("/surveys/:id", handler.deleteSurvey)
 		}
 	}
 

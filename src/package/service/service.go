@@ -13,6 +13,7 @@ type Authorization interface {
 	// admin's method
 	GetUsers() (*[]models.User, error)
 	CheckRole(user models.User) bool
+	DeleteUser(user models.User) (*models.User, error)
 }
 
 type Surveys interface {

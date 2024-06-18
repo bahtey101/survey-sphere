@@ -39,10 +39,18 @@ func (postgres *AuthPostgres) GetUsers() (*[]models.User, error) {
 	return users, nil
 }
 
-func (posgres *AuthPostgres) GetRole(user models.User) (*models.UserRole, error) {
-	err := posgres.DB.First(&user).Error
+func (postgres *AuthPostgres) GetRole(user models.User) (*models.UserRole, error) {
+	err := postgres.DB.First(&user).Error
 	if err != nil {
 		return nil, err
 	}
 	return &user.Role, nil
+}
+
+func (postgres *AuthPostgres) DeleteUser(user models.User) (*models.User, error) {
+	err := postgres.DB.Delete(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
