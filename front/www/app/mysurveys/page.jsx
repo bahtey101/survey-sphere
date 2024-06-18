@@ -8,7 +8,9 @@ import { post } from "@/utils/fething";
 import { useEffect, useState } from "react";
 
 export default function Mysurveys(children) {
-    const [surveys, setSurveys] = useState({ surveys: [{ Topic: "" }] });
+    const [surveys, setSurveys] = useState([]);
+    let surveysArray = surveys.surveys;
+    surveysArray ??= [];
 
     useEffect(() => {
         async function fetchSurveys() {
@@ -27,8 +29,8 @@ export default function Mysurveys(children) {
             <Header />
 
             <div className={styles.grid} id="grid">
-                {surveys.surveys.map((survey) => (
-                    <Survey topic={survey.Topic} />
+                {surveysArray.map((survey) => (
+                    <Survey key={survey.ID} topic={survey.Topic} />
                 ))}
                 <NewSurveyButton />
             </div>
