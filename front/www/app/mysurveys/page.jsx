@@ -16,7 +16,6 @@ export default function Mysurveys(children) {
         async function fetchSurveys() {
             const response = await post(process.env.NEXT_PUBLIC_SURVEYS, {
                 token: localStorage.getItem("token"),
-                topic: "asd",
             });
             setSurveys(response);
         }
@@ -30,7 +29,11 @@ export default function Mysurveys(children) {
 
             <div className={styles.grid} id="grid">
                 {surveysArray.map((survey) => (
-                    <Survey key={survey.ID} topic={survey.Topic} />
+                    <Survey
+                        key={survey.ID}
+                        surveyID={survey.ID}
+                        topic={survey.Topic}
+                    />
                 ))}
                 <NewSurveyButton />
             </div>
