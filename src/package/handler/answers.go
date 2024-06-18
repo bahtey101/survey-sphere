@@ -11,7 +11,7 @@ import (
 type AnswerInput struct {
 	Token          string `json:"token" binding:"required"`
 	QuestionNumber int32  `json:"question_number"`
-	AnswerText     string `json:"answer"`
+	AnswerText     string `json:"answer_text"`
 }
 
 func (handler *Handler) createAnswer(context *gin.Context) {

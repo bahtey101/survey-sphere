@@ -21,3 +21,7 @@ func (service *AnswerService) CreateAnswer(answer models.Answer) (*models.Answer
 func (service *AnswerService) GetAnswers(answer models.Answer) (*[]models.Answer, error) {
 	return service.repos.GetAnswers(answer)
 }
+
+func (service *AnswerService) CreateAnswers(answers []models.Answer) (*[]models.Answer, error) {
+	return service.repos.CreateAnswers(answers)
+}

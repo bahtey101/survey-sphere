@@ -42,3 +42,11 @@ func (postgres *AnswerPostgres) GetAnswers(answer models.Answer) (*[]models.Answ
 	}
 	return answers, nil
 }
+
+func (posgres *AnswerPostgres) CreateAnswers(answers []models.Answer) (*[]models.Answer, error) {
+	err := posgres.DB.Create(&answers).Error
+	if err != nil {
+		return nil, err
+	}
+	return &answers, nil
+}

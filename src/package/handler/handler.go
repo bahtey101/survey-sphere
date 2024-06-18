@@ -36,23 +36,21 @@ func (handler Handler) InitRoutes() *gin.Engine {
 			{
 				questions.POST("/get", handler.getSurveyPasses)
 				questions.POST("/questions", handler.getQuestions)
-				questions.POST("/new", handler.createQuestion)
 			}
 		}
 
-		passes := router.Group("/passes")
+		passes := api.Group("/passes")
 		{
 			passes.POST("/", handler.getPasses)
-			passes.POST("/new", handler.createPass)
+			passes.POST("/new", handler.createPassWithAnswers)
 
 			answers := passes.Group("/:id")
 			{
 				answers.POST("/", handler.getAnswers)
-				answers.POST("/new", handler.createAnswer)
 			}
 		}
 
-		admin := router.Group("/admin")
+		admin := api.Group("/admin")
 		{
 			admin.POST("/users", handler.getUsers)
 			admin.POST("/surveys", handler.getAllSurveys)

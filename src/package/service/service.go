@@ -43,6 +43,7 @@ type Passes interface {
 type Answers interface {
 	CreateAnswer(answer models.Answer) (*models.Answer, error)
 	GetAnswers(answer models.Answer) (*[]models.Answer, error)
+	CreateAnswers([]models.Answer) (*[]models.Answer, error)
 }
 
 type Service struct {
