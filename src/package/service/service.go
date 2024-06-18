@@ -26,6 +26,7 @@ type Surveys interface {
 
 	// admin's method
 	GetAllSurveys() (*[]models.Survey, error)
+	GetSurveysNumber(models.User) (int, error)
 }
 
 type Questions interface {

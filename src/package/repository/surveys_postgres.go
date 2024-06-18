@@ -71,3 +71,12 @@ func (postgres *SurveyPostgres) GetAllSurveys() (*[]models.Survey, error) {
 	}
 	return surveys, nil
 }
+
+func (postgres *SurveyPostgres) GetSurveysNumber(user models.User) (int, error) {
+	var count int64
+	err := postgres.DB.Where("creator_id = ?", user.ID).Find(&models.Survey{}).Count(&count).Error
+	if err != nil {
+		return 0, err
+	}
+	return int(count), err
+}

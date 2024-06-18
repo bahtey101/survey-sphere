@@ -36,3 +36,7 @@ func (service *SurveyService) GetSurveyAnswers(survey models.Survey) (*[]models.
 func (service *SurveyService) GetAllSurveys() (*[]models.Survey, error) {
 	return service.repos.GetAllSurveys()
 }
+
+func (service *SurveyService) GetSurveysNumber(user models.User) (int, error) {
+	return service.repos.GetSurveysNumber(user)
+}

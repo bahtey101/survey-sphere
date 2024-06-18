@@ -38,7 +38,29 @@ func (handler *Handler) getUsers(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"users": users})
+	type json_user struct {
+		ID            uint32          `json:"id"`
+		Login         string          `json:"login"`
+		Role          models.UserRole `json:"role"`
+		SurveysNumber int             `json:"surveys_number"`
+	}
+	var json_users []json_user
+
+	for _, user := range *users {
+		surveys_number, err := handler.service.Surveys.GetSurveysNumber(models.User{ID: user.ID})
+		if err != nil {
+			context.JSON(http.StatusInternalServerError, gin.H{"error": "get surveys number error"})
+			return
+		}
+		json_users = append(json_users, json_user{
+			ID:            user.ID,
+			Login:         user.Login,
+			Role:          user.Role,
+			SurveysNumber: surveys_number,
+		})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"users": json_users})
 }
 
 func (handler *Handler) getAllSurveys(context *gin.Context) {
