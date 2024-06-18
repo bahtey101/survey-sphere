@@ -60,7 +60,7 @@ func (handler *Handler) getSurveys(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"surveys": surveys})
 }
 
-func (handler *Handler) getSurveyPasses(context *gin.Context) {
+func (handler *Handler) getSurveyAnswers(context *gin.Context) {
 	var input SurveyInput
 	if err := context.BindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -79,13 +79,13 @@ func (handler *Handler) getSurveyPasses(context *gin.Context) {
 		return
 	}
 
-	passes, err := handler.service.Surveys.GetSurveyPasses(models.Survey{ID: uint32(surveyID)})
+	answers, err := handler.service.Surveys.GetSurveyAnswers(models.Survey{ID: uint32(surveyID)})
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"passes": passes})
+	context.JSON(http.StatusOK, gin.H{"answers": answers})
 }
 
 func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {

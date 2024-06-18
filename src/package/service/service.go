@@ -21,7 +21,7 @@ type Surveys interface {
 	GetSurvey(survey models.Survey) (*models.Survey, error)
 	GetSurveys(survey models.Survey) (*[]models.Survey, error)
 	DeleteSurvey(survey models.Survey) (*models.Survey, error)
-	GetSurveyPasses(survey models.Survey) (*[]models.Pass, error)
+	GetSurveyAnswers(survey models.Survey) (*[]models.Answer, error)
 
 	// admin's method
 	GetAllSurveys() (*[]models.Survey, error)
