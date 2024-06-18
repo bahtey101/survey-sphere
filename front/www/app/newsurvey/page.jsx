@@ -1,5 +1,7 @@
 "use client";
 
+"use client";
+
 import Header from "@/components/Header";
 import styles from "./page.module.css";
 import Image from "next/image";
@@ -11,6 +13,7 @@ import QuestionContainer from "./QuestionContainer";
 import { post } from "@/utils/fething";
 import { useRouter } from "next/navigation";
 
+export default function NewSurvey(children) {
 export default function NewSurvey(children) {
     var image_src = image_src || noImage;
 
@@ -42,6 +45,7 @@ export default function NewSurvey(children) {
         <>
             <Header />
 
+
             <div className={styles.container}>
                 <div className={styles.image}>
                     <Image
@@ -63,6 +67,18 @@ export default function NewSurvey(children) {
                                 isRequired={true}
                                 onChange={handleTopicChange}
                             />
+
+                <form
+                    className={styles.container_questions}
+                    onSubmit={handleSubmit}
+                >
+                    <div className={styles.topic_container}>
+                        <span className={styles.topic}>Название опроса:</span>
+                        <div className={styles.topic_input}>
+                            <Input
+                                isRequired={true}
+                                onChange={handleTopicChange}
+                            />
                         </div>
                     </div>
 
@@ -71,8 +87,15 @@ export default function NewSurvey(children) {
                         setQuestions={setQuestions}
                     />
 
+
+                    <QuestionContainer
+                        questions={questions}
+                        setQuestions={setQuestions}
+                    />
+
                     <div className={styles.container_button}>
                         <div className={styles.button}>
+                            <BlueButton text={"Создать опрос"} />
                             <BlueButton text={"Создать опрос"} />
                         </div>
                     </div>
