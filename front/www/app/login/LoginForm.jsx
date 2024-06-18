@@ -11,6 +11,11 @@ import { post } from "@/utils/fething";
 const LoginForm = () => {
     const router = useRouter();
 
+    // if (localStorage.getItem("token") != null) {
+    //     let role = localStorage.getItem("role")
+    //     router.push("/mysurveys");
+    // }
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -47,7 +52,14 @@ const LoginForm = () => {
 
             if (response.error == undefined) {
                 localStorage.setItem("token", response.token);
-                router.push("/mysurveys");
+                localStorage.setItem("role", response.role);
+
+                let role = localStorage.getItem("role");
+                if (role == "admin") {
+                    router.push("/adminpanel");
+                } else {
+                    router.push("/mysurveys");
+                }
             }
         }
     }

@@ -10,12 +10,12 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <nav className={styles.header_container}>
-                <Link className={styles.site_name} href={"/"}>
+                <Link className={styles.site_name} href={"/mysurveys"}>
                     Survey Sphere
                 </Link>
 
                 <Link
-                    href={"/"}
+                    href={"/login"}
                     className={styles.exit_button}
                     onClick={LogOut}
                 >
