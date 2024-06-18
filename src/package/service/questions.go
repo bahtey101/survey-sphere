@@ -29,3 +29,7 @@ func (service *QuestionService) GetQuestions(question models.Question) (*[]model
 func (service *QuestionService) DeleteQuestion(question models.Question) (*models.Question, error) {
 	return service.repos.DeleteQuestion(question)
 }
+
+func (service *QuestionService) CreateQuestions(questions []models.Question) (*[]models.Question, error) {
+	return service.repos.CreateQuestions(questions)
+}

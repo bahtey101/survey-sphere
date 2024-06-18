@@ -31,6 +31,7 @@ type Questions interface {
 	GetQuestion(question models.Question) (*models.Question, error)
 	GetQuestions(question models.Question) (*[]models.Question, error)
 	DeleteQuestion(question models.Question) (*models.Question, error)
+	CreateQuestions(questions []models.Question) (*[]models.Question, error)
 }
 
 type Passes interface {

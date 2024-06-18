@@ -78,5 +78,5 @@ func (handler *Handler) getSurveyPasses(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"surveys": passes})
+	context.JSON(http.StatusOK, gin.H{"passes": passes})
 }

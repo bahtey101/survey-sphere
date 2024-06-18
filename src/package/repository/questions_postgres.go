@@ -57,3 +57,11 @@ func (postgres *QuestionPostgres) DeleteQuestion(question models.Question) (*mod
 
 	return &question, nil
 }
+
+func (postgres *QuestionPostgres) CreateQuestions(questions []models.Question) (*[]models.Question, error) {
+	err := postgres.DB.Create(&questions).Error
+	if err != nil {
+		return nil, err
+	}
+	return &questions, nil
+}

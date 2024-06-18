@@ -31,10 +31,10 @@ func (handler Handler) InitRoutes() *gin.Engine {
 		{
 			surveys.POST("/", handler.getSurveys)
 			surveys.POST("/new", handler.createSurvey)
-			surveys.POST("/get", handler.getSurveyPasses)
 
 			questions := surveys.Group("/:id")
 			{
+				questions.POST("/fill", handler.createQuestions)
 				questions.POST("/get", handler.getSurveyPasses)
 				questions.POST("/questions", handler.getQuestions)
 				questions.POST("/new", handler.createQuestion)
