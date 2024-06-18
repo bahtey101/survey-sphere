@@ -60,8 +60,17 @@ func (handler *Handler) signIn(context *gin.Context) {
 		return
 	}
 
+	user, err := handler.service.GetUser(models.User{Login: input.Login})
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "user get role"})
+		return
+	}
+
 	// sending cookies
 	context.SetCookie("token", token, 60*60*24, "/", "localhost", false, true)
 
-	context.JSON(http.StatusOK, gin.H{"token": token})
+	context.JSON(http.StatusOK, gin.H{
+		"token": token,
+		"role":  user.Role,
+	})
 }
