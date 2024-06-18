@@ -15,6 +15,7 @@ export default function MySurvey({ params }) {
         async function fetchQuestions() {
             const response = await post(
                 process.env.NEXT_PUBLIC_SURVEYS +
+                    "/" +
                     params.id +
                     process.env.NEXT_PUBLIC_QUESTIONS,
                 {
