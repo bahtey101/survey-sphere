@@ -6,7 +6,11 @@ import Link from "next/link";
 const NewSurveyButton = () => {
     return (
         <div className={styles.container_new_survey_button}>
-            <Link className={styles.grey_circle} href="/newsurvey">
+            <Link
+                className={styles.grey_circle}
+                href="/newsurvey"
+                title="Создать новый опрос"
+            >
                 <Image
                     src={plusIcon}
                     height={50}

@@ -3,9 +3,12 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
-const BlueButton = ({ text }) => {
+const BlueButton = ({ text, onClick }) => {
     return (
-        <button className={`${styles.blue_button} ${inter.className}`}>
+        <button
+            className={`${styles.blue_button} ${inter.className}`}
+            onClick={onClick}
+        >
             {text}
         </button>
     );

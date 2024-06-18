@@ -3,8 +3,10 @@ import BlueButton from "@/components/BlueButton";
 import Image from "next/image";
 import noImage from "@/public/no_image.jpg";
 
-const Survey = ({ topic, image_src }) => {
+const Survey = ({ topic, surveyID, image_src }) => {
     image_src = image_src || noImage;
+    let linkToSurvey = "/mysurveys/" + surveyID;
+
     return (
         <div className={styles.container}>
             <div className={styles.image}>
@@ -19,7 +21,9 @@ const Survey = ({ topic, image_src }) => {
                 <div className={styles.topic}>{topic}</div>
 
                 <div style={{ padding: `10px` }}>
-                    <BlueButton text={"Просмотреть"} />
+                    <form action={linkToSurvey} method="get">
+                        <BlueButton text={"Просмотреть"} />
+                    </form>
                 </div>
             </div>
         </div>
