@@ -45,7 +45,7 @@ export default function MySurvey({ params }) {
         fetchPasses();
     }, []);
 
-    let questionsArray = questions.survey;
+    let questionsArray = questions.questions;
     questionsArray ??= [];
     questionsArray.sort((a, b) => a.Number - b.Number);
 
@@ -56,8 +56,9 @@ export default function MySurvey({ params }) {
     return (
         <>
             <Header />
-            <p className={styles.topic}>Название</p>
+
             <div className={styles.container_questions}>
+                <p className={styles.topic}>{questions.topic}</p>
                 {questionsArray.map((question) => (
                     <Question
                         key={question.Number}
