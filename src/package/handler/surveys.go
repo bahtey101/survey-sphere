@@ -67,13 +67,19 @@ func (handler *Handler) getSurveyPasses(context *gin.Context) {
 		return
 	}
 
-	userID, err := handler.service.Authorization.ParseToken(input.Token)
+	_, err := handler.service.Authorization.ParseToken(input.Token)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	passes, err := handler.service.Surveys.GetSurveyPasses(models.Survey{CreatorID: uint32(userID)})
+	surveyID, err := strconv.ParseUint(context.Param("id"), 10, 32)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "invalid survey id param"})
+		return
+	}
+
+	passes, err := handler.service.Surveys.GetSurveyPasses(models.Survey{ID: uint32(surveyID)})
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
