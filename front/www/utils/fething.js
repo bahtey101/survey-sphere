@@ -15,12 +15,11 @@ export async function post(url, request) {
 }
 
 export async function get(url, request) {
-    let response = await fetch(url, {
+    let response = fetch(url, {
         method: "GET",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
         },
-        body: JSON.stringify(request),
     });
 
     if (!response.ok) {

@@ -5,9 +5,12 @@ import BlueButton from "@/components/BlueButton";
 import Input from "@/components/Input";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { post } from "@/utils/fething";
 
 const LoginForm = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -41,7 +44,11 @@ const LoginForm = () => {
                 login: email,
                 password: password,
             });
-            console.log(response);
+
+            if (response.error == undefined) {
+                localStorage.setItem("token", response.token);
+                router.push("/mysurveys");
+            }
         }
     }
 
