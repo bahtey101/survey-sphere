@@ -3,7 +3,15 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
-const Input = ({ type, placeholder, id, name, onChange }) => {
+const Input = ({
+    type,
+    placeholder,
+    id,
+    name,
+    onChange,
+    pattern,
+    isRequired,
+}) => {
     return (
         <input
             type={type}
@@ -12,6 +20,8 @@ const Input = ({ type, placeholder, id, name, onChange }) => {
             className={styles.input}
             id={id}
             onChange={onChange}
+            pattern={pattern}
+            {...(isRequired ? { required: "required" } : {})}
         ></input>
     );
 };
