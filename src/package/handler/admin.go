@@ -44,6 +44,7 @@ func (handler *Handler) getUsers(context *gin.Context) {
 func (handler *Handler) getAllSurveys(context *gin.Context) {
 	type result struct {
 		ID           uint32    `json:"survey_id"`
+		Topic        string    `json:"topic"`
 		Login        string    `json:"login"`
 		CreationTime time.Time `json:"creation_time"`
 	}
@@ -81,6 +82,7 @@ func (handler *Handler) getAllSurveys(context *gin.Context) {
 		}
 		results = append(results, result{
 			ID:           survey.ID,
+			Topic:        survey.Topic,
 			Login:        user.Login,
 			CreationTime: survey.CreationTime,
 		})
