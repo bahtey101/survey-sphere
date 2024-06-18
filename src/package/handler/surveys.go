@@ -117,6 +117,7 @@ func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {
 			SurveyID:     uint32(survey.ID),
 			Number:       question.Number,
 			QuestionText: question.QuestionText,
+			Type:         models.WithText,
 		})
 	}
 
