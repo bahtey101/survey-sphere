@@ -62,12 +62,9 @@ func (handler *Handler) getPasses(context *gin.Context) {
 
 func (handler *Handler) createPassWithAnswers(context *gin.Context) {
 	var input struct {
-		Token    string `json:"token" binding:"required"`
-		SurveyID uint32 `json:"survey_id" binding:"required"`
-		Answers  []struct {
-			QuestionNumber int32  `json:"question_number"`
-			AnswerText     string `json:"answer_text"`
-		} `json:"answers" binding:"required"`
+		Token    string   `json:"token" binding:"required"`
+		SurveyID uint32   `json:"survey_id" binding:"required"`
+		Answers  []string `json:"answers" binding:"required"`
 	}
 
 	if err := context.BindJSON(&input); err != nil {
@@ -91,12 +88,12 @@ func (handler *Handler) createPassWithAnswers(context *gin.Context) {
 	}
 
 	var answers []models.Answer
-	for _, answer := range input.Answers {
+	for index, answer := range input.Answers {
 		answers = append(answers, models.Answer{
 			PassID:         pass.ID,
 			SurveyID:       pass.SurveyID,
-			QuestionNumber: answer.QuestionNumber,
-			AnswerText:     answer.AnswerText,
+			QuestionNumber: int32(index) + 1,
+			AnswerText:     answer,
 		})
 	}
 
