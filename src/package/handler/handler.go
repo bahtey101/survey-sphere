@@ -27,10 +27,12 @@ func (handler Handler) InitRoutes() *gin.Engine {
 
 	api := router.Group("/api")
 	{
+
 		surveys := api.Group("/surveys")
 		{
 			surveys.POST("/", handler.getSurveys)
 			surveys.POST("/new", handler.createSurveyWithQuestions)
+			surveys.POST("/survey/:id", handler.getQuestions)
 
 			questions := surveys.Group("/:id")
 			{

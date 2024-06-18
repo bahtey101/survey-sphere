@@ -86,7 +86,7 @@ func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {
 	var input struct {
 		Token     string   `json:"token" binding:"required"`
 		Topic     string   `json:"topic" binding:"required"`
-		Questions []string `json:"question" binding:"required"`
+		Questions []string `json:"questions" binding:"required"`
 	}
 
 	if err := context.BindJSON(&input); err != nil {
@@ -125,7 +125,7 @@ func (handler *Handler) createSurveyWithQuestions(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"status": "OK"})
+	context.JSON(http.StatusOK, gin.H{"user_id": userID})
 }
 
 func (handler *Handler) deleteSurvey(context *gin.Context) {
