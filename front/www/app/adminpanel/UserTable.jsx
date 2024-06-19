@@ -22,7 +22,7 @@ const UserTable = () => {
         setUsersArray((prevUsers) =>
             prevUsers.filter((users) => users.id !== idToDelete)
         );
-        let response = deleteRequest(
+        let response = post(
             process.env.NEXT_PUBLIC_GET_ALL_USERS + "/" + idToDelete,
             { token: localStorage.getItem("token") }
         );

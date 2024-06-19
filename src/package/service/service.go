@@ -41,6 +41,7 @@ type Passes interface {
 	CreatePass(pass models.Pass) (*models.Pass, error)
 	GetPass(pass models.Pass) (*models.Pass, error)
 	GetPasses(pass models.Pass) (*[]models.Pass, error)
+	GetUserPassCount(user models.User) int
 }
 
 type Answers interface {

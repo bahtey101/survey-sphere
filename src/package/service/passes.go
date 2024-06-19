@@ -24,3 +24,7 @@ func (service *PassService) GetPass(pass models.Pass) (*models.Pass, error) {
 func (service *PassService) GetPasses(pass models.Pass) (*[]models.Pass, error) {
 	return service.repos.GetPasses(pass)
 }
+
+func (service *PassService) GetUserPassCount(user models.User) int {
+	return service.repos.GetUserPassCount(user)
+}

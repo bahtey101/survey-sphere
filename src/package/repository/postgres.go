@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"src/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -25,6 +26,14 @@ func NewPostsgresDB(cfg Config) (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	db.AutoMigrate(
+		&models.User{},
+		&models.Survey{},
+		&models.Question{},
+		&models.Pass{},
+		&models.Answer{},
+	)
 
 	return db, nil
 }

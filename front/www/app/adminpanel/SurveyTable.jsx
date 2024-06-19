@@ -26,7 +26,7 @@ const SurveyTable = () => {
         setSurveysArray((prevSurveys) =>
             prevSurveys.filter((survey) => survey.survey_id !== idToDelete)
         );
-        let response = deleteRequest(
+        let response = post(
             process.env.NEXT_PUBLIC_GET_ALL_SURVEYS + "/" + idToDelete,
             { token: localStorage.getItem("token") }
         );

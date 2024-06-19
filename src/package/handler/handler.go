@@ -17,47 +17,50 @@ func NewHandler(service *service.Service) *Handler {
 func (handler Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	auth := router.Group("/auth")
+	all := router.Group("/", CORSMiddleware())
 	{
+		auth := all.Group("/auth")
 		{
-			auth.POST("/sign-up", handler.signUp)
-			auth.POST("/sign-in", handler.signIn)
-		}
-	}
-
-	api := router.Group("/api")
-	{
-
-		surveys := api.Group("/surveys")
-		{
-			surveys.POST("/", handler.getSurveys)
-			surveys.POST("/new", handler.createSurveyWithQuestions)
-			surveys.POST("/survey/:id", handler.getSurveyWithQuestions)
-
-			questions := surveys.Group("/:id")
 			{
-				questions.POST("/get", handler.getSurveyAnswers)
-				questions.POST("/questions", handler.getSurveyWithQuestions)
+				auth.POST("/sign-up", handler.signUp)
+				auth.POST("/sign-in", handler.signIn)
 			}
 		}
 
-		passes := api.Group("/passes")
+		api := all.Group("/api")
 		{
-			passes.POST("/", handler.getPasses)
-			passes.POST("/new", handler.createPassWithAnswers)
 
-			answers := passes.Group("/:id")
+			surveys := api.Group("/surveys")
 			{
-				answers.POST("/", handler.getAnswers)
-			}
-		}
+				surveys.POST("/", handler.getSurveys)
+				surveys.POST("/new", handler.createSurveyWithQuestions)
+				surveys.POST("/survey/:id", handler.getSurveyWithQuestions)
 
-		admin := api.Group("/admin")
-		{
-			admin.POST("/users", handler.getUsers)
-			admin.POST("/surveys", handler.getAllSurveys)
-			admin.DELETE("/users/:id", handler.deleteUser)
-			admin.DELETE("/surveys/:id", handler.deleteSurvey)
+				questions := surveys.Group("/:id")
+				{
+					questions.POST("/get", handler.getSurveyAnswers)
+					questions.POST("/questions", handler.getSurveyWithQuestions)
+				}
+			}
+
+			passes := api.Group("/passes")
+			{
+				passes.POST("/", handler.getPasses)
+				passes.POST("/new", handler.createPassWithAnswers)
+
+				answers := passes.Group("/:id")
+				{
+					answers.POST("/", handler.getAnswers)
+				}
+			}
+
+			admin := api.Group("/admin")
+			{
+				admin.POST("/users", handler.getUsers)
+				admin.POST("/surveys", handler.getAllSurveys)
+				admin.POST("/users/:id", handler.deleteUser)
+				admin.POST("/surveys/:id", handler.deleteSurvey)
+			}
 		}
 	}
 

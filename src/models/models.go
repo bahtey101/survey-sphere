@@ -53,9 +53,9 @@ type Question struct {
 }
 
 type Pass struct {
-	ID           uint32    `gorm:"uniqueIndex;primaryKey;"`
-	SurveyID     uint32    `gorm:"references:Survey.ID;index;"`
-	RespondentID uint32    `gorm:"references:User.ID;index;"`
+	ID           uint32    //`gorm:"uniqueIndex;"`
+	SurveyID     uint32    `gorm:"references:Survey.ID;index;primaryKey"`
+	RespondentID uint32    `gorm:"references:User.ID;index;primaryKey"`
 	CreationTime time.Time `gorm:"not null;autoCreateTime:milli"`
 	Answers      []Answer  `gorm:"foreignKey:PassID;references:ID;constraint:OnDelete:CASCADE;"`
 }

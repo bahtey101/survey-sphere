@@ -14,7 +14,7 @@ export default function Mysurveys(children) {
 
     useEffect(() => {
         async function fetchSurveys() {
-            const response = await post(process.env.NEXT_PUBLIC_SURVEYS, {
+            const response = await post(process.env.NEXT_PUBLIC_SURVEYS + '/', {
                 token: localStorage.getItem("token"),
             });
             setSurveys(response);

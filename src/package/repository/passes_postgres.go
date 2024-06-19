@@ -38,3 +38,12 @@ func (postgres *PassPostrgres) GetPasses(pass models.Pass) (*[]models.Pass, erro
 	}
 	return &passes, nil
 }
+
+func (postgres *PassPostrgres) GetUserPassCount(user models.User) int {
+	var count int64
+	err := postgres.DB.Where("respondent_id = ?", user.ID).Find(models.Pass{}).Count(&count).Error
+	if err != nil {
+		return 0
+	}
+	return int(count)
+}
